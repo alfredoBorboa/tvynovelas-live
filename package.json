@@ -1,0 +1,27 @@
+{
+  "name": "tvynovelas-live",
+  "version": "1.0.0",
+  "description": "Live voting system for Tv y Novelas 2015 awards",
+  "main": "index.js",
+  "scripts": {
+    "test": "none"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alfredoBorboa/tvynovelas-live.git"
+  },
+  "keywords": [
+    "tv",
+    "novelas",
+    "awards",
+    "premios",
+    "televisa",
+    "2015"
+  ],
+  "author": "Alfredo Borboa Osorio",
+  "license": "GPL V2.0",
+  "bugs": {
+    "url": "https://github.com/alfredoBorboa/tvynovelas-live/issues"
+  },
+  "homepage": "https://github.com/alfredoBorboa/tvynovelas-live"
+}
