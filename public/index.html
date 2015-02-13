@@ -1,11 +1,42 @@
+<!doctype html>
 <html>
 <head>
-</head>
-<body>
-<h1>Fuuuuuck yeahio</h1>
+<title>Votación Live Tv y Novelas 2015</title>
+
 <script src="/socket.io/socket.io.js"></script>
+<script src="resources/jquery.min.js"></script>
+
+</head>
+
+<body>
+<h1>Monitor Categoría 1</h1>
+<div id="ac1">Candidato 1<br/></div><br/>
+<div id="ac2">Candidato 2<br/></div><br/>
+<div id="ac3">Candidato 3<br/></div><br/>
+<div id="ac4">Candidato 4<br/></div><br/>
+<div id="ac5">Candidato 5<br/></div><br/>
 <script>
   var socket = io();
+  var contador = 0;
+  socket.on('voto', function(msg){
+
+    if( msg == "ac1j1" ){
+      $("#ac1").append("Jurado 1<br/>");
+    }
+    if( msg == "ac2j1" ){
+      $("#ac2").append("Jurado 1<br/>");
+    }
+    if( msg == "ac3j1" ){
+      $("#ac3").append("Jurado 1<br/>");
+    }
+    if( msg == "ac4j1" ){
+      $("#ac4").append("Jurado 1<br/>");
+    }
+    if( msg == "ac5j1" ){
+      $("#ac5").append("Jurado 1<br/>");
+    }
+
+  });   
 </script>
 </body>
 </html>
