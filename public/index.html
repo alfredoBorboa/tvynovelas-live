@@ -98,9 +98,21 @@
   
   if( contador == 13 ){
     $( "#votosTotales" ).html( "Votos Completos" );
-  }
+    
+    var arrayTotalesAc = [ contadorAc1, contadorAc2, contadorAc3, contadorAc4, contadorAc5 ];
+    
+    for( var i = 0; i < arrayTotalesAc.length; i++ ){
+      for( var j = 0; j < arrayTotalesAc.length; j++ ){
+        if( arrayTotalesAc[ i ] == arrayTotalesAc[ j ] && i != j ){
+          console.log( i + ", " + j );
+          $( "#votosTotales" ).html( "Empate!!!!" );  
+        } // if i != j
+      } // for 2
+    } // for 1
 
-  });   
+  } // if contador == 13
+
+  }); // socket.on voto   
 </script>
 </body>
 </html>
