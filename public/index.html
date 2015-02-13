@@ -10,11 +10,13 @@
 
 <body>
 <h1>Monitor Categoría 1: <span id="votosTotales"></span></h1>
+<div id="candidatos">
 <div id="ac1">Candidato 1: <span id="conteoAc1"></span><br/></div><br/>
 <div id="ac2">Candidato 2: <span id="conteoAc2"></span><br/></div><br/>
 <div id="ac3">Candidato 3: <span id="conteoAc3"></span><br/></div><br/>
 <div id="ac4">Candidato 4: <span id="conteoAc4"></span><br/></div><br/>
 <div id="ac5">Candidato 5: <span id="conteoAc5"></span><br/></div><br/>
+</div> <!-- candidatos -->
 <script>
   var socket = io();
   var contador = 0;
@@ -100,16 +102,28 @@
     $( "#votosTotales" ).html( "Votos Completos" );
     
     var arrayTotalesAc = [ contadorAc1, contadorAc2, contadorAc3, contadorAc4, contadorAc5 ];
-    
-    for( var i = 0; i < arrayTotalesAc.length; i++ ){
-      for( var j = 0; j < arrayTotalesAc.length; j++ ){
-        if( arrayTotalesAc[ i ] == arrayTotalesAc[ j ] && i != j ){
-          console.log( i + ", " + j );
-          $( "#votosTotales" ).html( "Empate!!!!" );  
-        } // if i != j
-      } // for 2
-    } // for 1
+    var votoMaximoAc = Math.max( contadorAc1, contadorAc2, contadorAc3, contadorAc4, contadorAc5); 
+    var candidatosAc = [ "Candidato 1", "Candidato 2", "Candidato 3", "Candidato 4", "Candidato 5" ];
+    var arrayGanadores = [];
 
+    for( var i = 0; i < arrayTotalesAc.length; i++ ){
+      if( arrayTotalesAc[ i ] == votoMaximoAc ){
+        arrayGanadores.push( candidatosAc[ i ] );
+      }
+    }
+    
+    if( arrayGanadores.length == 1 ){
+      $( "#votosTotales" ).html( "Ganador: " + arrayGanadores[ 0 ] );
+    }
+    if( arrayGanadores.length > 1 ){
+      $( "#votosTotales" ).html( "Empate!!!" );
+      $( "#candidatos" ).html( "" );
+      for( var i = 0; i < arrayGanadores.length; i++ ){
+        $( "#candidatos" ).append( "<div id='ac" + ( i + 1 ) + "'>" + arrayGanadores[ i ] + ": <span id='conteoAc" + ( i + 1 ) + "'></span><br/></div><br/>" );
+      } 
+    }
+    
+    
   } // if contador == 13
 
   }); // socket.on voto   

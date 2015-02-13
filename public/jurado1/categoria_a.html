@@ -10,14 +10,17 @@
 
 <body>
 <h1>Categoria A</h1>
-<a href="javascript:void()" id="candidato1">Candidato 1</a>
-<a href="javascript:void()" id="candidato2">Candidato 2</a>
-<a href="javascript:void()" id="candidato3">Candidato 3</a>
-<a href="javascript:void()" id="candidato4">Candidato 4</a>
-<a href="javascript:void()" id="candidato5">Candidato 5</a>
+<a href="javascript:void()" id="candidato1" nombre="aCandidato1Jurado1" valor="ac1j1" class="candidato" >Candidato 1</a>
+<a href="javascript:void()" id="candidato2" nombre="aCandidato2Jurado1" valor="ac2j1" class="candidato" >Candidato 2</a>
+<a href="javascript:void()" id="candidato3" nombre="aCandidato3Jurado1" valor="ac3j1" class="candidato" >Candidato 3</a>
+<a href="javascript:void()" id="candidato4" nombre="aCandidato4Jurado1" valor="ac4j1" class="candidato" >Candidato 4</a>
+<a href="javascript:void()" id="candidato5" nombre="aCandidato5Jurado1" valor="ac5j1" class="candidato" >Candidato 5</a>
 <script>
 
   var socket = io();
+    
+  
+  
   $("#candidato1").click(function(){
     socket.emit('aCandidato1Jurado1', 'ac1j1');
     return false;
