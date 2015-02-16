@@ -9,90 +9,47 @@
 </head>
 
 <body>
-<h1>Monitor Categoría 1: <span id="votosTotales"></span></h1>
+<h1>Mejor Telenovela: <span id="votosTotales"></span></h1>
 <div id="candidatos">
-<div id="ac1">Candidato 1: <span id="conteoAc1"></span><br/></div><br/>
-<div id="ac2">Candidato 2: <span id="conteoAc2"></span><br/></div><br/>
-<div id="ac3">Candidato 3: <span id="conteoAc3"></span><br/></div><br/>
-<div id="ac4">Candidato 4: <span id="conteoAc4"></span><br/></div><br/>
-<div id="ac5">Candidato 5: <span id="conteoAc5"></span><br/></div><br/>
+<div id="ac1">Mi corazón es tuyo: <span id="conteoAc1"></span><br/></div><br/>
+<div id="ac2">Lo que la vida me robó: <span id="conteoAc2"></span><br/></div><br/>
+<div id="ac3">El color de la pasión: <span id="conteoAc3"></span><br/></div><br/>
+<div id="ac4">Que pobres tan ricos: <span id="conteoAc4"></span><br/></div><br/>
+<div id="ac5">Yo no creo en los hombres: <span id="conteoAc5"></span><br/></div><br/>
 </div> <!-- candidatos -->
 <script>
   var socket = io();
   var contador = 0;
-  var contadorAc1 = 0;
-  var contadorAc2 = 0;
-  var contadorAc3 = 0;
-  var contadorAc4 = 0;
-  var contadorAc5 = 0;
+    
+  var idCandidatoDirector;
+  var idConteoDirector;
+  var idContadorDirector;
 
-  socket.on('voto', function(msg){
+  var contadores = [ 0, 0, 0, 0, 0 ];
+    
+  var jurados = [ "Pedro Damián", "Mara Patricia Castañeda", "Alfredo Gudinni", "Claudia de Icaza", "Karla Martínez", "Flor Rubio", "Aurora Valle", "Lupita Martínez", "Karina Duprez", "Salvador Mejía", "Nicandro Díaz", "Roberto Hernández", "TVYNOV" ];
+  var aCandidatos = [ "Mi corazón es tuyo", "Lo que la vida me robó", "El color de la pasión", "Que pobres tan ricos", "Yo no creo en los hombres" ];
+  var idCandidatos = [ 1, 2, 3, 4, 5 ];
+
+  socket.on('votoHaciaMonitor', function(msg){
 
   if( contador < 13 ){
     
-    // categoria A jurado 1
-    if( msg == "ac1j1" ){
-      $("#ac1").append("Jurado 1<br/>");
-      contadorAc1++;
-      $( "#conteoAc1" ).html( contadorAc1 );
-      contador++;
-    }
-    if( msg == "ac2j1" ){
-      $("#ac2").append("Jurado 1<br/>");
-      contadorAc2++;
-      $( "#conteoAc2" ).html( contadorAc2 );
-      contador++;
-    }
-    if( msg == "ac3j1" ){
-      $("#ac3").append("Jurado 1<br/>");
-      contadorAc3++;
-      $( "#conteoAc3" ).html( contadorAc3 );
-      contador++;
-    }
-    if( msg == "ac4j1" ){
-      $("#ac4").append("Jurado 1<br/>");
-      contadorAc4++;
-      $( "#conteoAc4" ).html( contadorAc4 );
-      contador++;
-    }
-    if( msg == "ac5j1" ){
-      $("#ac5").append("Jurado 1<br/>");
-      contadorAc5++;
-      $( "#conteoAc5" ).html( contadorAc5 );
-      contador++;
-    }
+    var splitMsg = msg.split("");
+    var idCandidato = "#ac" + splitMsg[ 2 ];
+    $( idCandidato ).append( jurados[ splitMsg[ 4 ] - 1 ] + "<br/>");
     
-    //categoria A jurado 2
-    if( msg == "ac1j2" ){
-      $("#ac1").append("Jurado 2 <br/>"); 
-      contadorAc1++;
-      $( "#conteoAc1" ).html( contadorAc1 );
-      contador++;
+    var idConteo = "#conteoAc" + splitMsg[ 2 ];
+    contadores[ splitMsg[ 2 ] - 1 ]++;
+    $( idConteo ).html( contadores[ splitMsg[ 2 ] - 1 ] );
+    
+    if( splitMsg[ 4 ] == 1 ){
+        idCandidatoDirector = idCandidato;
+        idConteoDirector = idConteo;
+        idContadorDirector = splitMsg[ 2 ] - 1;
     }
-    if( msg == "ac2j2" ){
-      $("#ac2").append("Jurado 2<br/>");
-      contadorAc2++;
-      $( "#conteoAc2" ).html( contadorAc2 );
-      contador++;
-    }
-    if( msg == "ac3j2" ){
-      $("#ac3").append("Jurado 2<br/>");
-      contadorAc3++;
-      $( "#conteoAc3" ).html( contadorAc3 );
-      contador++;
-    }
-    if( msg == "ac4j2" ){
-      $("#ac4").append("Jurado 2<br/>");
-      contadorAc4++;
-      $( "#conteoAc4" ).html( contadorAc4 );
-      contador++;
-    }
-    if( msg == "ac5j2" ){
-      $("#ac5").append("Jurado 2<br/>");
-      contadorAc5++;
-      $( "#conteoAc5" ).html( contadorAc5 );
-      contador++;
-    }
+  
+    contador++;
 
     $( "#votosTotales" ).html( contador );
 
@@ -101,32 +58,67 @@
   if( contador == 13 ){
     $( "#votosTotales" ).html( "Votos Completos" );
     
-    var arrayTotalesAc = [ contadorAc1, contadorAc2, contadorAc3, contadorAc4, contadorAc5 ];
-    var votoMaximoAc = Math.max( contadorAc1, contadorAc2, contadorAc3, contadorAc4, contadorAc5); 
-    var candidatosAc = [ "Candidato 1", "Candidato 2", "Candidato 3", "Candidato 4", "Candidato 5" ];
-    var arrayGanadores = [];
+    var votoMaximoAc = Math.max( contadores[ 0 ], contadores[ 1 ], contadores[ 2 ], contadores[ 3 ], contadores[ 4 ] ); 
 
-    for( var i = 0; i < arrayTotalesAc.length; i++ ){
-      if( arrayTotalesAc[ i ] == votoMaximoAc ){
-        arrayGanadores.push( candidatosAc[ i ] );
+    var arrayGanadores = [];
+    var arrayIdCandidatosG = [];
+      
+    for( var i = 0; i < contadores.length; i++ ){
+      if( contadores[ i ] == votoMaximoAc ){
+        arrayGanadores.push( aCandidatos[ i ] );
       }
     }
     
     if( arrayGanadores.length == 1 ){
       $( "#votosTotales" ).html( "Ganador: " + arrayGanadores[ 0 ] );
     }
+      
     if( arrayGanadores.length > 1 ){
-      $( "#votosTotales" ).html( "Empate!!!" );
-      $( "#candidatos" ).html( "" );
-      for( var i = 0; i < arrayGanadores.length; i++ ){
-        $( "#candidatos" ).append( "<div id='ac" + ( i + 1 ) + "'>" + arrayGanadores[ i ] + ": <span id='conteoAc" + ( i + 1 ) + "'></span><br/></div><br/>" );
-      } 
+        
+      contadores[ idContadorDirector ]++;
+      $( idConteoDirector ).html( contadores[ idContadorDirector ] );
+        
+      votoMaximoAc = Math.max( contadores[ 0 ], contadores[ 1 ], contadores[ 2 ], contadores[ 3 ], contadores[ 4 ] );
+        
+      arrayGanadores = [];
+        
+      for( var i = 0; i < contadores.length; i++ ){
+      if( contadores[ i ] == votoMaximoAc ){
+        arrayGanadores.push( aCandidatos[ i ] );
+        arrayIdCandidatosG.push( idCandidatos[ i ] );
+      }
     }
+    if( arrayGanadores.length == 1 ){
+      $( "#votosTotales" ).html( "Ganador: " + arrayGanadores[ 0 ] );
+    }
+    if( arrayGanadores.length > 1 ){
+        votacionSecundaria( arrayGanadores, arrayIdCandidatosG );
+    }
+      
+    } //if arrayGanadores.length > 1
     
     
   } // if contador == 13
 
-  }); // socket.on voto   
+  }); // socket.on voto  
+    
+    function votacionSecundaria( candidatosSecundarios, arrayIdCandidatosG2 ){
+        $( "#votosTotales" ).html( "Desempate" );
+        $( "#candidatos" ).html( "" );
+        contador = 0;
+        contadores = [ 0, 0, 0, 0, 0 ];
+        for( var i = 0; i < candidatosSecundarios.length; i++ ){
+            $( "#candidatos" ).append( "<div id='ac" + arrayIdCandidatosG2[ i ] + "'>" + candidatosSecundarios[ i ] + ": <span id='conteoAc" + arrayIdCandidatosG2[ i ] + "'></span><br/></div><br/>" );
+        }
+        
+        for( var i = 0; i < arrayIdCandidatosG2.length; i++ ){
+            candidatosSecundarios.push( arrayIdCandidatosG2[ i ] );
+        }
+        
+        socket.emit( "convocaSegundaVotacion", candidatosSecundarios );
+        
+    }
+    
 </script>
 </body>
 </html>

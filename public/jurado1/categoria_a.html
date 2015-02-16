@@ -5,42 +5,37 @@
 
 <script src="../socket.io/socket.io.js"></script>
 <script src="../resources/jquery.min.js"></script>
+    
+<link rel="stylesheet" type="text/css" href="../style.css">
 
 </head>
 
 <body>
 <h1>Categoria A</h1>
-<a href="javascript:void()" id="candidato1" nombre="aCandidato1Jurado1" valor="ac1j1" class="candidato" >Candidato 1</a>
-<a href="javascript:void()" id="candidato2" nombre="aCandidato2Jurado1" valor="ac2j1" class="candidato" >Candidato 2</a>
-<a href="javascript:void()" id="candidato3" nombre="aCandidato3Jurado1" valor="ac3j1" class="candidato" >Candidato 3</a>
-<a href="javascript:void()" id="candidato4" nombre="aCandidato4Jurado1" valor="ac4j1" class="candidato" >Candidato 4</a>
-<a href="javascript:void()" id="candidato5" nombre="aCandidato5Jurado1" valor="ac5j1" class="candidato" >Candidato 5</a>
+<div id="candidatos">
+<a href="javascript:void(0)" valor="ac1j1" class="candidato" ><div class="cuadroCandidato">Mi corazón es tuyo</div></a>
+<a href="javascript:void(0)" valor="ac2j1" class="candidato" ><div class="cuadroCandidato">Lo que la vida me robó</div></a>
+<a href="javascript:void(0)" valor="ac3j1" class="candidato" ><div class="cuadroCandidato">El color de la pasión</div></a>
+<a href="javascript:void(0)" valor="ac4j1" class="candidato" ><div class="cuadroCandidato">Que pobres tan ricos</div></a>
+<a href="javascript:void(0)" valor="ac5j1" class="candidato" ><div class="cuadroCandidato">Yo no creo en los hombres</div></a>
+</div>
 <script>
 
   var socket = io();
     
+  $("#candidatos").on( 'click', '.candidato', function(){
+      var mensaje = $( this ).attr( "valor");
+      socket.emit( "votoDesdeJurado", mensaje );
+      return false;
+  });
+    
+  socket.on( "ordenaSegundaVotacion", function( msg ){
+      $( "#candidatos" ).html( "" );
+      for( var i = 0; i < ( msg.length / 2 ); i++ ){
+        $( "#candidatos" ).append( "<a href='javascript:void(0)' valor='ac" + msg[ i + ( msg.length / 2 ) ] + "j1' class='candidato' ><div class='cuadroCandidato'>" + msg[ i ] + "</div></a> " );
+      }
+  });
   
-  
-  $("#candidato1").click(function(){
-    socket.emit('aCandidato1Jurado1', 'ac1j1');
-    return false;
-  });
-  $("#candidato2").click(function(){
-    socket.emit('aCandidato2Jurado1', 'ac2j1');
-    return false;
-  });
-  $("#candidato3").click(function(){
-    socket.emit('aCandidato3Jurado1', 'ac3j1');
-    return false;
-  });
-  $("#candidato4").click(function(){
-    socket.emit('aCandidato4Jurado1', 'ac4j1');
-    return false;
-  });
-  $("#candidato5").click(function(){
-    socket.emit('aCandidato5Jurado1', 'ac5j1');
-    return false;
-  });
 </script>
 
 </body>

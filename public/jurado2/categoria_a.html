@@ -5,39 +5,37 @@
 
 <script src="../socket.io/socket.io.js"></script>
 <script src="../resources/jquery.min.js"></script>
+    
+<link rel="stylesheet" type="text/css" href="../style.css">
 
 </head>
 
 <body>
 <h1>Categoria A</h1>
-<a href="javascript:void()" id="candidato1">Candidato 1</a>
-<a href="javascript:void()" id="candidato2">Candidato 2</a>
-<a href="javascript:void()" id="candidato3">Candidato 3</a>
-<a href="javascript:void()" id="candidato4">Candidato 4</a>
-<a href="javascript:void()" id="candidato5">Candidato 5</a>
+<div id="candidatos">
+<a href="javascript:void(0)" valor="ac1j2" class="candidato" ><div class="cuadroCandidato">Mi corazón es tuyo</div></a>
+<a href="javascript:void(0)" valor="ac2j2" class="candidato" ><div class="cuadroCandidato">Lo que la vida me robó</div></a>
+<a href="javascript:void(0)" valor="ac3j2" class="candidato" ><div class="cuadroCandidato">El color de la pasión</div></a>
+<a href="javascript:void(0)" valor="ac4j2" class="candidato" ><div class="cuadroCandidato">Que pobres tan ricos</div></a>
+<a href="javascript:void(0)" valor="ac5j2" class="candidato" ><div class="cuadroCandidato">Yo no creo en los hombres</div></a>
+</div>
 <script>
 
   var socket = io();
-  $("#candidato1").click(function(){
-    socket.emit('aCandidato1Jurado2', 'ac1j2');
-    return false;
+    
+  $("#candidatos").on( 'click', '.candidato', function(){
+      var mensaje = $( this ).attr( "valor");
+      socket.emit( "votoDesdeJurado", mensaje );
+      return false;
   });
-  $("#candidato2").click(function(){
-    socket.emit('aCandidato2Jurado2', 'ac2j2');
-    return false;
+    
+  socket.on( "ordenaSegundaVotacion", function( msg ){
+      $( "#candidatos" ).html( "" );
+      for( var i = 0; i < ( msg.length / 2 ); i++ ){
+        $( "#candidatos" ).append( "<a href='javascript:void(0)' valor='ac" + msg[ i + ( msg.length / 2 ) ] + "j2' class='candidato' ><div class='cuadroCandidato'>" + msg[ i ] + "</div></a> " );
+      }
   });
-  $("#candidato3").click(function(){
-    socket.emit('aCandidato3Jurado2', 'ac3j2');
-    return false;
-  });
-  $("#candidato4").click(function(){
-    socket.emit('aCandidato4Jurado2', 'ac4j2');
-    return false;
-  });
-  $("#candidato5").click(function(){
-    socket.emit('aCandidato5Jurado2', 'ac5j2');
-    return false;
-  });
+  
 </script>
 
 </body>
