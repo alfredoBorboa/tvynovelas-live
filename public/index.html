@@ -59,13 +59,14 @@
     
     var splitMsg = msg.split("");
     var idCandidato = "#ac" + splitMsg[ 2 ];
-    $( idCandidato ).append( jurados[ splitMsg[ 4 ] - 1 ] + "<br/>");
+    var idJurado = parseInt( splitMsg[ 4 ], 16 );
+    $( idCandidato ).append( jurados[ idJurado - 1 ] + "<br/>");
     
     var idConteo = "#conteoAc" + splitMsg[ 2 ];
     contadores[ splitMsg[ 2 ] - 1 ]++;
     $( idConteo ).html( contadores[ splitMsg[ 2 ] - 1 ] );
     
-    if( splitMsg[ 4 ] == 1 ){
+    if( idJurado == 1 ){
         idCandidatoDirector = idCandidato;
         idConteoDirector = idConteo;
         idContadorDirector = splitMsg[ 2 ] - 1;
