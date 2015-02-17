@@ -28,6 +28,10 @@ io.on('connection', function(socket){
   socket.on( "siguienteSeccionMonitor", function( msg ){
       io.emit( "siguienteSeccionVotante", msg );
   });
+    
+    socket.on( "mandaRefresh", function( msg ){
+      io.emit( "recibeRefresh", msg );
+  });
 
 });//termina io.on
 

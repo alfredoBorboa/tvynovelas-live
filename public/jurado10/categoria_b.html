@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+<title>Votación Live Tv y Novelas 2015</title>
+
+<script src="../socket.io/socket.io.js"></script>
+<script src="../resources/jquery.min.js"></script>
+    
+<link rel="stylesheet" type="text/css" href="../style.css">
+
+</head>
+
+<body>
+
+<div id="overlayLogo"><img src="../resources/TVyNovelasWeb.png"/></div>
+
+<div id="overlayConfirmacion">
+<div id="confirmaVoto">
+Por favor confirma tu voto a<br/><br/>
+<span id="nombreCandidatoVotado"></span><br/><br/><br/>
+    <a href="javascript:void(0)"><div id="btnConfirma">confirmar</div></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)"><div id="btnCancela">cancelar</div></a>
+</div>
+</div>
+
+<div id="contenedor" >
+<h1>Mejor Actriz</h1>
+<div id="candidatos"> 
+<a href="javascript:void(0)" valor="bc1ja" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/bc1.jpg" width="220" height="220"></div>Mayte Perroni</div></a>  
+<a href="javascript:void(0)" valor="bc2ja" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/bc2.jpg" width="220" height="220"></div>Angelique Boyer</div></a>
+<a href="javascript:void(0)" valor="bc3ja" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/bc3.jpg" width="220" height="220"></div>Esmeralda Pimentel</div></a>
+<a href="javascript:void(0)" valor="bc4ja" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/bc4.jpg" width="220" height="220"></div>Zuria Vega</div></a>
+<a href="javascript:void(0)" valor="bc5ja" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/bc5.jpg" width="220" height="220"></div>Adriana Louvier</div></a>
+<a href="javascript:void(0)" valor="bc6ja" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/bc6.jpg" width="220" height="220"></div>Ariadne Díaz</div></a>
+</div><!-- candidatos -->
+</div><!-- contenedor -->
+<script>
+
+  var socket = io();
+    
+  var mensaje;    
+    
+  $( "#candidatos" ).on( 'click', '.candidato', function(){
+      var valorImagen = $( this ).attr( 'valor' );
+      var idImagen = valorImagen.split( 'j' );
+      var mensajeLargo = $( this ).children( ".cuadroCandidato" ).html();
+      var nombreCandidato = mensajeLargo.replace( "<div class=\"imgCandidato\"><img src=\"../resources/imgs/" + idImagen[ 0 ] + ".jpg\" width=\"220\" height=\"220\"></div>" , "");
+      $( "#nombreCandidatoVotado" ).html( nombreCandidato );
+      $( "#overlayConfirmacion" ).fadeToggle( "slow" );
+      mensaje = $( this ).attr( "valor");
+  });
+    
+  $( "#btnConfirma" ).on( 'click', function(){
+      socket.emit( "votoDesdeJurado", mensaje );
+      $("*[valor='" + mensaje + "']").children( ".cuadroCandidato" ).children( ".imgCandidato" ).append( "<div id='palomita' style='position:absolute;margin-top:-220px'><img src='../resources/paloma.png'/></div>" );
+      $( "#overlayConfirmacion" ).fadeToggle( "slow" );
+      $( "#candidatos" ).children().click( false );
+      return false;
+  });
+    
+  $( "#btnCancela" ).on( 'click', function(){
+      $( "#overlayConfirmacion" ).fadeToggle( "slow" );
+  });
+    
+  
+    
+  socket.on( "ordenaSegundaVotacion", function( msg ){
+      $( "#candidatos" ).html( "" );
+      for( var i = 0; i < ( msg.length / 2 ); i++ ){
+        $( "#candidatos" ).append( "<a href='javascript:void(0)' valor='bc" + msg[ i + ( msg.length / 2 ) ] + "ja' class='candidato' ><div class='cuadroCandidato'><div class='imgCandidato'><img src='../resources/imgs/bc" + msg[ i + ( msg.length / 2 ) ] + ".jpg' width='220' height='220'></div>" + msg[ i ] + "</div></a> " );
+      }
+      $( "#candidatos" ).children().click( true );
+  });
+    
+  socket.on( "activaOverlayLogoVotante", function( msg ){
+    if( msg == 1 ){
+        $( "#overlayLogo" ).fadeToggle( "slow" );
+    }
+  });
+    
+  socket.on( "siguienteSeccionVotante", function( msg ){
+    if( msg == 1 ){
+        window.location.href = "categoria_c.html";
+    }
+  });
+    
+    socket.on( "recibeRefresh", function( msg ){
+    if( msg == 1 ){
+        location.reload();
+    }
+  });
+  
+</script>
+
+</body>
+</html>

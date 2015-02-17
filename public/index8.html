@@ -1,0 +1,187 @@
+<!doctype html>
+<html>
+<head>
+<title>Votación Live Tv y Novelas 2015</title>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="resources/jquery.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="style.css">
+    
+</head>
+
+<body>
+
+<div id="overlayLogo"><img src="resources/TVyNovelasWeb.png"/></div>
+
+<div id="overlayGanador">
+    <div id="ganadorTexto">
+        Ganador<br/><br/>
+        <span id="elGanador"></span>
+        <div id="fotoGanador"></div>
+    </div>
+</div>
+    
+<div id="overlayEmpate">
+    <div id="empateTexto">
+        ¡Empate!
+    </div>
+</div>
+    
+<div id="contenedor">
+<h1>Mejor Actriz Coestelar<span id="votosTotales"></span></h1>
+<div id="candidatos">
+<div class="candidatoM" id="hc1"><div class="imgCandidatoM"><img src="resources/imgs/hc1.jpg"/></div>Silvia Pasquel<br/><br/><span class="conteoM" id="conteoHc1"></span><br/><br/></div>
+<div class="candidatoM" id="hc2"><div class="imgCandidatoM"><img src="resources/imgs/hc2.jpg"/></div>Eugenia Cauduro<br/><br/><span class="conteoM" id="conteoHc2"></span><br/><br/></div>
+<div class="candidatoM" id="hc3"><div class="imgCandidatoM"><img src="resources/imgs/hc3.jpg"/></div>Fabiola Guajardo<br/><br/><span class="conteoM" id="conteoHc3"></span><br/><br/></div>
+<div class="candidatoM" id="hc4"><div class="imgCandidatoM"><img src="resources/imgs/hc4.jpg"/></div>África Zavala<br/><br/><span class="conteoM" id="conteoHc4"></span><br/><br/></div>
+</div> <!-- candidatos -->
+</div> <!-- contenedor -->
+<script>
+  var socket = io();
+  var contador = 0;
+    
+  var idCandidatoDirector;
+  var idConteoDirector;
+  var idContadorDirector;
+  var hayGanador = false;
+
+  var contadores = [ 0, 0, 0, 0 ];
+    
+  var jurados = [ "Pedro Damián", "Mara Patricia Castañeda", "Alfredo Gudinni", "Claudia de Icaza", "Karla Martínez", "Flor Rubio", "Aurora Valle", "Lupita Martínez", "Karina Duprez", "Salvador Mejía", "Nicandro Díaz", "Roberto Hernández", "TVYNOV" ];
+  var aCandidatos = [ "Silvia Pasquel", "Eugenia Cauduro", "Fabiola Guajardo", "África Zavala" ];
+  var idCandidatos = [ 1, 2, 3, 4 ];
+
+  socket.on('votoHaciaMonitor', function(msg){
+
+  if( contador < 13 ){
+    
+    var splitMsg = msg.split("");
+    var idCandidato = "#hc" + splitMsg[ 2 ];
+    var idJurado = parseInt( splitMsg[ 4 ], 16 );
+    $( idCandidato ).append( jurados[ idJurado - 1 ] + "<br/>");
+    
+    var idConteo = "#conteoHc" + splitMsg[ 2 ];
+    contadores[ splitMsg[ 2 ] - 1 ]++;
+    $( idConteo ).html( contadores[ splitMsg[ 2 ] - 1 ] );
+    
+    if( idJurado == 1 ){
+        idCandidatoDirector = idCandidato;
+        idConteoDirector = idConteo;
+        idContadorDirector = splitMsg[ 2 ] - 1;
+    }
+  
+    contador++;
+
+    $( "#votosTotales" ).html( contador );
+
+  } // if contador < 13
+  
+  if( contador == 13 ){
+    //$( "#votosTotales" ).html( "Votos Completos" );
+    
+    var votoMaximoAc = Math.max( contadores[ 0 ], contadores[ 1 ], contadores[ 2 ], contadores[ 3 ] ); 
+
+    var arrayGanadores = [];
+    var arrayIdCandidatosG = [];
+      
+    for( var i = 0; i < contadores.length; i++ ){
+      if( contadores[ i ] == votoMaximoAc ){
+        arrayGanadores.push( aCandidatos[ i ] );
+      }
+    }
+    
+    if( arrayGanadores.length == 1 ){
+      //$( "#votosTotales" ).html( "Ganador: " + arrayGanadores[ 0 ] );
+      $( "#elGanador" ).append( arrayGanadores[ 0 ] );
+        
+      $( ".candidatoM" ).each( function(){
+          if( $( this ).html().indexOf( arrayGanadores[ 0 ] ) > -1 ){
+             var imgParaGanador = $( this ).children( ".imgCandidatoM" ).clone();
+             $( "#fotoGanador" ).append( imgParaGanador );
+          }
+        });
+      
+      hayGanador = true;
+      $( "#overlayGanador" ).fadeToggle( "slow" );
+    }
+      
+    if( arrayGanadores.length > 1 ){
+        
+      contadores[ idContadorDirector ]++;
+      $( idConteoDirector ).html( contadores[ idContadorDirector ] );
+        
+      votoMaximoAc = Math.max( contadores[ 0 ], contadores[ 1 ], contadores[ 2 ], contadores[ 3 ] );
+        
+      arrayGanadores = [];
+        
+      for( var i = 0; i < contadores.length; i++ ){
+      if( contadores[ i ] == votoMaximoAc ){
+        arrayGanadores.push( aCandidatos[ i ] );
+        arrayIdCandidatosG.push( idCandidatos[ i ] );
+      }
+    }
+    if( arrayGanadores.length == 1 ){
+      //$( "#votosTotales" ).html( "Ganador: " + arrayGanadores[ 0 ] );
+      $( "#elGanador" ).append( arrayGanadores[ 0 ] );
+        
+      $( ".candidatoM" ).each( function(){
+          if( $( this ).html().indexOf( arrayGanadores[ 0 ] ) > -1 ){
+             var imgParaGanador = $( this ).children( ".imgCandidatoM" ).clone();
+             $( "#fotoGanador" ).append( imgParaGanador );
+          }
+      });
+      hayGanador = true; 
+      $( "#overlayGanador" ).fadeToggle( "slow" );
+    }
+    if( arrayGanadores.length > 1 ){
+        votacionSecundaria( arrayGanadores, arrayIdCandidatosG );
+    }
+      
+    } //if arrayGanadores.length > 1
+    
+    
+  } // if contador == 13
+
+  }); // socket.on voto  
+    
+    function votacionSecundaria( candidatosSecundarios, arrayIdCandidatosG2 ){
+        //$( "#votosTotales" ).html( " Desempate" );
+        $( "#overlayEmpate" ).fadeToggle( "slow" );
+        setTimeout(function(){
+        $( "#overlayEmpate" ).fadeToggle( "slow" );
+        $( "#candidatos" ).html( "" );
+        contador = 0;
+        contadores = [ 0, 0, 0, 0 ];
+        for( var i = 0; i < candidatosSecundarios.length; i++ ){
+            $( "#candidatos" ).append( "<div class='candidatoM' id='hc" + arrayIdCandidatosG2[ i ] + "'><div class='imgCandidatoM'><img src='resources/imgs/hc" + arrayIdCandidatosG2[ i ] + ".jpg'/></div>" + candidatosSecundarios[ i ] + "<br/><br/><span class='conteoM' id='conteoHc" + arrayIdCandidatosG2[ i ] + "'></span><br/><br/></div>" );
+        }
+        
+        for( var i = 0; i < arrayIdCandidatosG2.length; i++ ){
+            candidatosSecundarios.push( arrayIdCandidatosG2[ i ] );
+        } 
+        socket.emit( "convocaSegundaVotacion", candidatosSecundarios );    
+        }, 3000);
+    }// votacionSecundaria
+    
+    $( document ).on( "keyup", function( event ){
+        if( event.which == "90" ){
+            $( "#overlayLogo" ).fadeToggle( "slow" );
+            socket.emit( "activaOverlayLogoDesdeMonitor", 1 );   
+        }
+        
+        if( event.which == "77" && hayGanador ){
+            socket.emit( "siguienteSeccionMonitor", 1 );   
+            window.location.href = "index9.html";
+        }
+        
+        if( event.which == "82" ){
+            socket.emit( "mandaRefresh", 1 );   
+            location.reload();
+        }
+        
+    });
+    
+</script>
+</body>
+</html>

@@ -52,7 +52,7 @@ Por favor confirma tu voto a<br/><br/>
       socket.emit( "votoDesdeJurado", mensaje );
       $("*[valor='" + mensaje + "']").children( ".cuadroCandidato" ).children( ".imgCandidato" ).append( "<div id='palomita' style='position:absolute;margin-top:-220px'><img src='../resources/paloma.png'/></div>" );
       $( "#overlayConfirmacion" ).fadeToggle( "slow" );
-      //$( "#candidatos" ).children().click( false );
+      $( "#candidatos" ).children().click( false );
       return false;
   });
     
@@ -79,6 +79,12 @@ Por favor confirma tu voto a<br/><br/>
   socket.on( "siguienteSeccionVotante", function( msg ){
     if( msg == 1 ){
         window.location.href = "categoria_b.html";
+    }
+  });
+    
+  socket.on( "recibeRefresh", function( msg ){
+    if( msg == 1 ){
+        location.reload();
     }
   });
   

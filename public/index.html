@@ -171,9 +171,14 @@
             socket.emit( "activaOverlayLogoDesdeMonitor", 1 );   
         }
         
-        if( event.which == "88" && hayGanador ){
+        if( event.which == "77" && hayGanador ){
             socket.emit( "siguienteSeccionMonitor", 1 );   
             window.location.href = "index2.html";
+        }
+        
+        if( event.which == "82" ){
+            socket.emit( "mandaRefresh", 1 );   
+            location.reload();
         }
         
     });

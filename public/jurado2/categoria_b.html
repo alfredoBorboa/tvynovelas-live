@@ -30,6 +30,7 @@ Por favor confirma tu voto a<br/><br/>
 <a href="javascript:void(0)" valor="bc3j2" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/bc3.jpg" width="220" height="220"></div>Esmeralda Pimentel</div></a>
 <a href="javascript:void(0)" valor="bc4j2" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/bc4.jpg" width="220" height="220"></div>Zuria Vega</div></a>
 <a href="javascript:void(0)" valor="bc5j2" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/bc5.jpg" width="220" height="220"></div>Adriana Louvier</div></a>
+<a href="javascript:void(0)" valor="bc6j2" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/bc6.jpg" width="220" height="220"></div>Ariadne Díaz</div></a>
 </div><!-- candidatos -->
 </div><!-- contenedor -->
 <script>
@@ -52,7 +53,7 @@ Por favor confirma tu voto a<br/><br/>
       socket.emit( "votoDesdeJurado", mensaje );
       $("*[valor='" + mensaje + "']").children( ".cuadroCandidato" ).children( ".imgCandidato" ).append( "<div id='palomita' style='position:absolute;margin-top:-220px'><img src='../resources/paloma.png'/></div>" );
       $( "#overlayConfirmacion" ).fadeToggle( "slow" );
-      //$( "#candidatos" ).children().click( false );
+      $( "#candidatos" ).children().click( false );
       return false;
   });
     
@@ -73,6 +74,18 @@ Por favor confirma tu voto a<br/><br/>
   socket.on( "activaOverlayLogoVotante", function( msg ){
     if( msg == 1 ){
         $( "#overlayLogo" ).fadeToggle( "slow" );
+    }
+  });
+    
+  socket.on( "siguienteSeccionVotante", function( msg ){
+    if( msg == 1 ){
+        window.location.href = "categoria_c.html";
+    }
+  });
+    
+    socket.on( "recibeRefresh", function( msg ){
+    if( msg == 1 ){
+        location.reload();
     }
   });
   

@@ -28,7 +28,7 @@
     </div>
 </div>
     
-<div id="contenedor">
+<div id="contenedor" style="width:1200px;margin-left:-600px">
 <h1>Mejor Actriz<span id="votosTotales"></span></h1>
 <div id="candidatos">
 <div class="candidatoM" id="bc1"><div class="imgCandidatoM"><img src="resources/imgs/bc1.jpg"/></div>Mayte Perroni<br/><br/><span class="conteoM" id="conteoBc1"></span><br/><br/></div>
@@ -36,6 +36,7 @@
 <div class="candidatoM" id="bc3"><div class="imgCandidatoM"><img src="resources/imgs/bc3.jpg"/></div>Esmeralda Pimentel<br/><br/><span class="conteoM" id="conteoBc3"></span><br/><br/></div>
 <div class="candidatoM" id="bc4"><div class="imgCandidatoM"><img src="resources/imgs/bc4.jpg"/></div>Zuria Vega<br/><br/><span class="conteoM" id="conteoBc4"></span><br/><br/></div>
 <div class="candidatoM" id="bc5"><div class="imgCandidatoM"><img src="resources/imgs/bc5.jpg"/></div>Adriana Louvier<br/><br/><span class="conteoM" id="conteoBc5"></span><br/><br/></div>
+<div class="candidatoM" id="bc6"><div class="imgCandidatoM"><img src="resources/imgs/bc6.jpg"/></div>Ariadne Díaz<br/><br/><span class="conteoM" id="conteoBc6"></span><br/><br/></div>
 </div> <!-- candidatos -->
 </div> <!-- contenedor -->
 <script>
@@ -47,11 +48,11 @@
   var idContadorDirector;
   var hayGanador = false;
 
-  var contadores = [ 0, 0, 0, 0, 0 ];
+  var contadores = [ 0, 0, 0, 0, 0, 0 ];
     
   var jurados = [ "Pedro Damián", "Mara Patricia Castañeda", "Alfredo Gudinni", "Claudia de Icaza", "Karla Martínez", "Flor Rubio", "Aurora Valle", "Lupita Martínez", "Karina Duprez", "Salvador Mejía", "Nicandro Díaz", "Roberto Hernández", "TVYNOV" ];
-  var aCandidatos = [ "Mayte Perroni", "Angelique Boyer", "Esmeralda Pimentel", "Zuria Vega", "Adriana Louvier" ];
-  var idCandidatos = [ 1, 2, 3, 4, 5 ];
+  var aCandidatos = [ "Mayte Perroni", "Angelique Boyer", "Esmeralda Pimentel", "Zuria Vega", "Adriana Louvier", "Ariadne Díaz" ];
+  var idCandidatos = [ 1, 2, 3, 4, 5, 6 ];
 
   socket.on('votoHaciaMonitor', function(msg){
 
@@ -81,7 +82,7 @@
   if( contador == 13 ){
     //$( "#votosTotales" ).html( "Votos Completos" );
     
-    var votoMaximoAc = Math.max( contadores[ 0 ], contadores[ 1 ], contadores[ 2 ], contadores[ 3 ], contadores[ 4 ] ); 
+    var votoMaximoAc = Math.max( contadores[ 0 ], contadores[ 1 ], contadores[ 2 ], contadores[ 3 ], contadores[ 4 ], contadores[ 5 ] ); 
 
     var arrayGanadores = [];
     var arrayIdCandidatosG = [];
@@ -112,7 +113,7 @@
       contadores[ idContadorDirector ]++;
       $( idConteoDirector ).html( contadores[ idContadorDirector ] );
         
-      votoMaximoAc = Math.max( contadores[ 0 ], contadores[ 1 ], contadores[ 2 ], contadores[ 3 ], contadores[ 4 ] );
+      votoMaximoAc = Math.max( contadores[ 0 ], contadores[ 1 ], contadores[ 2 ], contadores[ 3 ], contadores[ 4 ], contadores[ 5 ] );
         
       arrayGanadores = [];
         
@@ -153,7 +154,7 @@
         $( "#overlayEmpate" ).fadeToggle( "slow" );
         $( "#candidatos" ).html( "" );
         contador = 0;
-        contadores = [ 0, 0, 0, 0, 0 ];
+        contadores = [ 0, 0, 0, 0, 0, 0 ];
         for( var i = 0; i < candidatosSecundarios.length; i++ ){
             $( "#candidatos" ).append( "<div class='candidatoM' id='bc" + arrayIdCandidatosG2[ i ] + "'><div class='imgCandidatoM'><img src='resources/imgs/bc" + arrayIdCandidatosG2[ i ] + ".jpg'/></div>" + candidatosSecundarios[ i ] + "<br/><br/><span class='conteoM' id='conteoBc" + arrayIdCandidatosG2[ i ] + "'></span><br/><br/></div>" );
         }
@@ -171,9 +172,14 @@
             socket.emit( "activaOverlayLogoDesdeMonitor", 1 );   
         }
         
-        if( event.which == "88" && hayGanador ){
+        if( event.which == "77" && hayGanador ){
             socket.emit( "siguienteSeccionMonitor", 1 );   
-            window.location.href = "index2.html";
+            window.location.href = "index3.html";
+        }
+        
+        if( event.which == "82" ){
+            socket.emit( "mandaRefresh", 1 );   
+            location.reload();
         }
         
     });
