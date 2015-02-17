@@ -29,13 +29,13 @@
 </div>
     
 <div id="contenedor">
-<h1>Mejor Telenovela<span id="votosTotales"></span></h1>
+<h1>Mejor Actriz<span id="votosTotales"></span></h1>
 <div id="candidatos">
-<div class="candidatoM" id="ac1"><div class="imgCandidatoM"><img src="resources/imgs/ac1.jpg"/></div>Mi corazón es tuyo<br/><br/><span class="conteoM" id="conteoAc1"></span><br/><br/></div>
-<div class="candidatoM" id="ac2"><div class="imgCandidatoM"><img src="resources/imgs/ac2.jpg"/></div>Lo que la vida me robó<br/><br/><span class="conteoM" id="conteoAc2"></span><br/><br/></div>
-<div class="candidatoM" id="ac3"><div class="imgCandidatoM"><img src="resources/imgs/ac3.jpg"/></div>El color de la pasión<br/><br/><span class="conteoM" id="conteoAc3"></span><br/><br/></div>
-<div class="candidatoM" id="ac4"><div class="imgCandidatoM"><img src="resources/imgs/ac4.jpg"/></div>Que pobres tan ricos<br/><br/><span class="conteoM" id="conteoAc4"></span><br/><br/></div>
-<div class="candidatoM" id="ac5"><div class="imgCandidatoM"><img src="resources/imgs/ac5.jpg"/></div>Yo no creo en los hombres<br/><br/><span class="conteoM" id="conteoAc5"></span><br/><br/></div>
+<div class="candidatoM" id="bc1"><div class="imgCandidatoM"><img src="resources/imgs/bc1.jpg"/></div>Mayte Perroni<br/><br/><span class="conteoM" id="conteoBc1"></span><br/><br/></div>
+<div class="candidatoM" id="bc2"><div class="imgCandidatoM"><img src="resources/imgs/bc2.jpg"/></div>Angelique Boyer<br/><br/><span class="conteoM" id="conteoBc2"></span><br/><br/></div>
+<div class="candidatoM" id="bc3"><div class="imgCandidatoM"><img src="resources/imgs/bc3.jpg"/></div>Esmeralda Pimentel<br/><br/><span class="conteoM" id="conteoBc3"></span><br/><br/></div>
+<div class="candidatoM" id="bc4"><div class="imgCandidatoM"><img src="resources/imgs/bc4.jpg"/></div>Zuria Vega<br/><br/><span class="conteoM" id="conteoBc4"></span><br/><br/></div>
+<div class="candidatoM" id="bc5"><div class="imgCandidatoM"><img src="resources/imgs/bc5.jpg"/></div>Adriana Louvier<br/><br/><span class="conteoM" id="conteoBc5"></span><br/><br/></div>
 </div> <!-- candidatos -->
 </div> <!-- contenedor -->
 <script>
@@ -50,7 +50,7 @@
   var contadores = [ 0, 0, 0, 0, 0 ];
     
   var jurados = [ "Pedro Damián", "Mara Patricia Castañeda", "Alfredo Gudinni", "Claudia de Icaza", "Karla Martínez", "Flor Rubio", "Aurora Valle", "Lupita Martínez", "Karina Duprez", "Salvador Mejía", "Nicandro Díaz", "Roberto Hernández", "TVYNOV" ];
-  var aCandidatos = [ "Mi corazón es tuyo", "Lo que la vida me robó", "El color de la pasión", "Que pobres tan ricos", "Yo no creo en los hombres" ];
+  var aCandidatos = [ "Mayte Perroni", "Angelique Boyer", "Esmeralda Pimentel", "Zuria Vega", "Adriana Louvier" ];
   var idCandidatos = [ 1, 2, 3, 4, 5 ];
 
   socket.on('votoHaciaMonitor', function(msg){
@@ -58,10 +58,10 @@
   if( contador < 13 ){
     
     var splitMsg = msg.split("");
-    var idCandidato = "#ac" + splitMsg[ 2 ];
+    var idCandidato = "#bc" + splitMsg[ 2 ];
     $( idCandidato ).append( jurados[ splitMsg[ 4 ] - 1 ] + "<br/>");
     
-    var idConteo = "#conteoAc" + splitMsg[ 2 ];
+    var idConteo = "#conteoBc" + splitMsg[ 2 ];
     contadores[ splitMsg[ 2 ] - 1 ]++;
     $( idConteo ).html( contadores[ splitMsg[ 2 ] - 1 ] );
     
@@ -154,7 +154,7 @@
         contador = 0;
         contadores = [ 0, 0, 0, 0, 0 ];
         for( var i = 0; i < candidatosSecundarios.length; i++ ){
-            $( "#candidatos" ).append( "<div class='candidatoM' id='ac" + arrayIdCandidatosG2[ i ] + "'><div class='imgCandidatoM'><img src='resources/imgs/ac" + arrayIdCandidatosG2[ i ] + ".jpg'/></div>" + candidatosSecundarios[ i ] + "<br/><br/><span class='conteoM' id='conteoAc" + arrayIdCandidatosG2[ i ] + "'></span><br/><br/></div>" );
+            $( "#candidatos" ).append( "<div class='candidatoM' id='bc" + arrayIdCandidatosG2[ i ] + "'><div class='imgCandidatoM'><img src='resources/imgs/bc" + arrayIdCandidatosG2[ i ] + ".jpg'/></div>" + candidatosSecundarios[ i ] + "<br/><br/><span class='conteoM' id='conteoBc" + arrayIdCandidatosG2[ i ] + "'></span><br/><br/></div>" );
         }
         
         for( var i = 0; i < arrayIdCandidatosG2.length; i++ ){

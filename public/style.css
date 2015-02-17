@@ -1,8 +1,234 @@
+/*------------------ Styling general ----------- */
+body{
+    font-family: sans-serif;
+    color: #000;
+    letter-spacing: 0.045em;
+    background-color: #FFF;
+    margin:0;
+    padding:0;
+    background-image: url(resources/tile2.png);
+}
+
+#contenedor{
+    position: absolute;
+    left: 50%;
+    width: 960px;
+    margin-left: -480px;
+    top: 50px;
+    padding:0px;
+    z-index: 1;
+}
+
+#overlayLogo{
+    position:absolute;
+    background-color: #FFF;
+    width:100%;
+    height:100%;
+    z-index: 2;
+}
+
+#overlayLogo img{
+    width:100%;
+}
+
+/*------------------ Styling para votantes ----------- */
 .cuadroCandidato{
-float:left;
-width:250px;
-height:350px;
-background-color:#F00;
-margin-left:20px;
-margin-top:20px;
+    float:left;
+    width:220px;
+    height:300px;
+    margin-right:20px;
+    margin-top:20px;
+}
+
+#candidatos{
+    text-align: center;
+}
+
+#candidatos a{
+    color: #000;
+    text-decoration: none;
+}
+
+#candidatos a:hover{
+}
+
+.imgCandidato{
+    width:220px;
+    height:220px;
+    background-color: #555;
+    margin-bottom:10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px #888888;
+    overflow: hidden;
+}
+
+#overlayConfirmacion{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #FFF;
+    display: none;
+    background-image: url(resources/tile2.png);
+    z-index: 3;
+}
+
+#confirmaVoto{
+    position:absolute;
+    width: 350px;
+    height: 150px;
+    left: 50%;
+    margin-left: -225px;
+    top: 50%;
+    margin-top: -150px;
+    text-align: center;
+    background-color: #FFF;
+    padding: 50px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px #888888;
+}
+
+#nombreCandidatoVotado{
+    font-size: 30px;
+}
+
+#btnConfirma{
+    width: 70px;
+    height: 20px;
+    background-color: #E6E6E6;
+    float: left;
+    margin-left:60px;
+    padding:15px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    color: #000;
+}
+
+#btnConfirma:hover{
+    background-color: #CCCCCC;
+}
+
+#btnConfirma:active{
+    background-color: #CCCCCC;
+}
+
+#btnCancela{
+    width: 70px;
+    height: 15px;
+    background-color: #E6E6E6;
+    float: left;
+    margin-left: 30px;
+    padding: 15px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    color: #000;
+}
+
+#btnCancela:hover{
+    background-color: #CCCCCC;
+}
+
+#btnCancela:active{
+    background-color: #CCCCCC;
+}
+
+/*-------- Styling para monitores ------------*/
+.candidatoM{
+    float:left;
+    width:172px;
+    height:500px;
+    margin-right:20px;
+    margin-top:20px;
+    font-size: 12px;
+}
+
+.imgCandidatoM{
+    width: 172px;
+    height: 172px;
+    background-color: #555;
+    margin-bottom: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px #888888;
+    overflow:hidden;
+}
+
+.imgCandidatoM img{
+    width:100%;
+}
+
+.conteoM{
+    font-size: 32px;
+}
+
+#overlayGanador{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #FFF;
+    text-align: center;
+    color: #000;
+    display: none;
+    z-index: 3;
+    background-image: url(resources/tile2.png);
+}
+
+#ganadorTexto{
+    position:absolute;
+    width: 300px;
+    height: 270px;
+    background-color: #FFF;
+    left: 50%;
+    margin-left: -180px;
+    top: 50%;
+    margin-top: -150px;
+    padding:30px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px #888888;
+}
+
+#fotoGanador{
+    margin-top:25px;
+    margin-left:65px;
+}
+
+#elGanador{
+    font-size: 25px;
+}
+
+#overlayEmpate{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #FFF;
+    text-align: center;
+    color: #000;
+    display: none;
+    z-index: 3;
+    background-image: url(resources/tile2.png);
+}
+
+#empateTexto{
+    position:absolute;
+    width: 300px;
+    height: 30px;
+    background-color: #FFF;
+    left: 50%;
+    margin-left: -180px;
+    top: 50%;
+    margin-top: -150px;
+    padding:30px;
+    font-size:30px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px #888888;
 }

@@ -20,6 +20,14 @@ io.on('connection', function(socket){
   socket.on( "convocaSegundaVotacion", function( msg ){
       io.emit( "ordenaSegundaVotacion", msg );
   });
+    
+   socket.on( "activaOverlayLogoDesdeMonitor", function( msg ){
+      io.emit( "activaOverlayLogoVotante", msg );
+  });
+    
+  socket.on( "siguienteSeccionMonitor", function( msg ){
+      io.emit( "siguienteSeccionVotante", msg );
+  });
 
 });//termina io.on
 
