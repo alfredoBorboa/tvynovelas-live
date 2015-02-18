@@ -21,8 +21,10 @@ Por favor confirma tu voto a<br/><br/>
     <a href="javascript:void(0)"><div id="btnConfirma">confirmar</div></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)"><div id="btnCancela">cancelar</div></a>
 </div>
 </div>
+    
+<div id="overlayBlockVoto"></div>
 
-<div id="contenedor" >
+<div id="contenedor">
 <h1>Mejor Telenovela</h1>
 <div id="candidatos"> 
 <a href="javascript:void(0)" valor="ac1ja" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/ac1.jpg" width="220" height="220"></div>Mi corazón es tuyo</div></a>  
@@ -50,9 +52,10 @@ Por favor confirma tu voto a<br/><br/>
     
   $( "#btnConfirma" ).on( 'click', function(){
       socket.emit( "votoDesdeJurado", mensaje );
-      $("*[valor='" + mensaje + "']").children( ".cuadroCandidato" ).children( ".imgCandidato" ).append( "<div id='palomita' style='position:absolute;margin-top:-220px'><img src='../resources/paloma.png'/></div>" );
+      $("*[valor='" + mensaje + "']").children( ".cuadroCandidato" ).children( ".imgCandidato" ).append( "<div id='palomita' style='position:absolute;margin-top:-190px'><img src='../resources/paloma.png'/></div>" );
       $( "#overlayConfirmacion" ).fadeToggle( "slow" );
-      $( "#candidatos" ).children().click( false );
+      //$( "#candidatos" ).children().click( false );
+      $( "#overlayBlockVoto" ).show();
       return false;
   });
     
@@ -67,7 +70,9 @@ Por favor confirma tu voto a<br/><br/>
       for( var i = 0; i < ( msg.length / 2 ); i++ ){
         $( "#candidatos" ).append( "<a href='javascript:void(0)' valor='ac" + msg[ i + ( msg.length / 2 ) ] + "ja' class='candidato' ><div class='cuadroCandidato'><div class='imgCandidato'><img src='../resources/imgs/ac" + msg[ i + ( msg.length / 2 ) ] + ".jpg' width='220' height='220'></div>" + msg[ i ] + "</div></a> " );
       }
-      $( "#candidatos" ).children().click( true );
+      //$( "#candidatos" ).children().click( true );
+      $( "#overlayBlockVoto" ).hide();
+      realinea();
   });
     
   socket.on( "activaOverlayLogoVotante", function( msg ){
@@ -87,6 +92,28 @@ Por favor confirma tu voto a<br/><br/>
         location.reload();
     }
   });
+
+  function realinea(){
+  var numChildCandidatos = $( "#candidatos" ).children().length;
+      
+  if( numChildCandidatos == 6 ){
+      $( "#candidatos a:nth-child( 5 )" ).children( ".cuadroCandidato" ).css( "margin-left", "220px" );
+  }
+      
+  if( numChildCandidatos == 5 ){
+      $( "#candidatos a:nth-child( 5 )" ).children( ".cuadroCandidato" ).css( "margin-left", "320px" );
+  }
+      
+  if( numChildCandidatos == 3 ){
+      $( "#candidatos a:nth-child( 1 )" ).children( ".cuadroCandidato" ).css( "margin-left", "120px" );
+  }
+      
+  if( numChildCandidatos == 2 ){
+      $( "#candidatos a:nth-child( 1 )" ).children( ".cuadroCandidato" ).css( "margin-left", "220px" );
+  }
+      
+  }
+  realinea();
   
 </script>
 

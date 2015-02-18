@@ -28,9 +28,9 @@
     </div>
 </div>
     
-<div id="contenedor">
+<div id="contenedorM">
 <h1>Mejor Actriz Coestelar<span id="votosTotales"></span></h1>
-<div id="candidatos">
+<div id="candidatosM">
 <div class="candidatoM" id="hc1"><div class="imgCandidatoM"><img src="resources/imgs/hc1.jpg"/></div>Silvia Pasquel<br/><br/><span class="conteoM" id="conteoHc1"></span><br/><br/></div>
 <div class="candidatoM" id="hc2"><div class="imgCandidatoM"><img src="resources/imgs/hc2.jpg"/></div>Eugenia Cauduro<br/><br/><span class="conteoM" id="conteoHc2"></span><br/><br/></div>
 <div class="candidatoM" id="hc3"><div class="imgCandidatoM"><img src="resources/imgs/hc3.jpg"/></div>Fabiola Guajardo<br/><br/><span class="conteoM" id="conteoHc3"></span><br/><br/></div>
@@ -150,16 +150,17 @@
         $( "#overlayEmpate" ).fadeToggle( "slow" );
         setTimeout(function(){
         $( "#overlayEmpate" ).fadeToggle( "slow" );
-        $( "#candidatos" ).html( "" );
+        $( "#candidatosM" ).html( "" );
         contador = 0;
         contadores = [ 0, 0, 0, 0 ];
         for( var i = 0; i < candidatosSecundarios.length; i++ ){
-            $( "#candidatos" ).append( "<div class='candidatoM' id='hc" + arrayIdCandidatosG2[ i ] + "'><div class='imgCandidatoM'><img src='resources/imgs/hc" + arrayIdCandidatosG2[ i ] + ".jpg'/></div>" + candidatosSecundarios[ i ] + "<br/><br/><span class='conteoM' id='conteoHc" + arrayIdCandidatosG2[ i ] + "'></span><br/><br/></div>" );
+            $( "#candidatosM" ).append( "<div class='candidatoM' id='hc" + arrayIdCandidatosG2[ i ] + "'><div class='imgCandidatoM'><img src='resources/imgs/hc" + arrayIdCandidatosG2[ i ] + ".jpg'/></div>" + candidatosSecundarios[ i ] + "<br/><br/><span class='conteoM' id='conteoHc" + arrayIdCandidatosG2[ i ] + "'></span><br/><br/></div>" );
         }
         
         for( var i = 0; i < arrayIdCandidatosG2.length; i++ ){
             candidatosSecundarios.push( arrayIdCandidatosG2[ i ] );
         } 
+        realinea();
         socket.emit( "convocaSegundaVotacion", candidatosSecundarios );    
         }, 3000);
     }// votacionSecundaria
@@ -181,6 +182,32 @@
         }
         
     });
+    
+function realinea(){
+  var numChildCandidatos = $( "#candidatosM" ).children().length; 
+        
+  if( numChildCandidatos == 6 ){
+      $( "#candidatosM:nth-child( 1 )" ).css( "margin-left", "-90px" );
+  }
+      
+  if( numChildCandidatos == 5 ){
+      $( "#candidatosM .candidatoM:nth-child( 1 )" ).css( "margin-left", "0px" );
+  }
+        
+  if( numChildCandidatos == 4 ){
+      $( "#candidatosM .candidatoM:nth-child( 1 )" ).css( "margin-left", "90px" );
+  }
+      
+  if( numChildCandidatos == 3 ){
+      $( "#candidatosM .candidatoM:nth-child( 1 )" ).css( "margin-left", "180px" );
+  }
+      
+  if( numChildCandidatos == 2 ){
+      $( "#candidatosM .candidatoM:nth-child( 1 )" ).css( "margin-left", "290px" );
+  }
+      
+  }
+  realinea();
     
 </script>
 </body>

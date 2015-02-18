@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+<title>Votación Live Tv y Novelas 2015</title>
+
+<script src="../socket.io/socket.io.js"></script>
+<script src="../resources/jquery.min.js"></script>
+    
+<link rel="stylesheet" type="text/css" href="../style.css">
+
+</head>
+
+<body>
+
+<div id="overlayLogo"><img src="../resources/TVyNovelasWeb.png"/></div>
+
+<div id="overlayConfirmacion">
+<div id="confirmaVoto">
+Por favor confirma tu voto a<br/><br/>
+<span id="nombreCandidatoVotado"></span><br/><br/><br/>
+    <a href="javascript:void(0)"><div id="btnConfirma">confirmar</div></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)"><div id="btnCancela">cancelar</div></a>
+</div>
+</div>
+
+<div id="contenedor" >
+<h1>Mejor Villano</h1>
+<div id="candidatos"> 
+<a href="javascript:void(0)" valor="ec1j2" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/ec1.jpg" width="220" height="220"></div>Flavio Medina</div></a>  
+<a href="javascript:void(0)" valor="ec2j2" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/ec2.jpg" width="220" height="220"></div>Sergio Sendel</div></a>
+<a href="javascript:void(0)" valor="ec3j2" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/ec3.jpg" width="220" height="220"></div>Alberto Estrella</div></a>
+<a href="javascript:void(0)" valor="ec4j2" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/ec4.jpg" width="220" height="220"></div>Alexis Ayala</div></a>
+</div><!-- candidatos -->
+</div><!-- contenedor -->
+<script>
+
+  var socket = io();
+    
+  var mensaje;    
+    
+  $( "#candidatos" ).on( 'click', '.candidato', function(){
+      var valorImagen = $( this ).attr( 'valor' );
+      var idImagen = valorImagen.split( 'j' );
+      var mensajeLargo = $( this ).children( ".cuadroCandidato" ).html();
+      var nombreCandidato = mensajeLargo.replace( "<div class=\"imgCandidato\"><img src=\"../resources/imgs/" + idImagen[ 0 ] + ".jpg\" width=\"220\" height=\"220\"></div>" , "");
+      $( "#nombreCandidatoVotado" ).html( nombreCandidato );
+      $( "#overlayConfirmacion" ).fadeToggle( "slow" );
+      mensaje = $( this ).attr( "valor");
+  });
+    
+  $( "#btnConfirma" ).on( 'click', function(){
+      socket.emit( "votoDesdeJurado", mensaje );
+      $("*[valor='" + mensaje + "']").children( ".cuadroCandidato" ).children( ".imgCandidato" ).append( "<div id='palomita' style='position:absolute;margin-top:-220px'><img src='../resources/paloma.png'/></div>" );
+      $( "#overlayConfirmacion" ).fadeToggle( "slow" );
+      $( "#candidatos" ).children().click( false );
+      return false;
+  });
+    
+  $( "#btnCancela" ).on( 'click', function(){
+      $( "#overlayConfirmacion" ).fadeToggle( "slow" );
+  });
+    
+  
+    
+  socket.on( "ordenaSegundaVotacion", function( msg ){
+      $( "#candidatos" ).html( "" );
+      for( var i = 0; i < ( msg.length / 2 ); i++ ){
+          var soloNombre = msg[ i ].split( "<" );
+        $( "#candidatos" ).append( "<a href='javascript:void(0)' valor='ec" + msg[ i + ( msg.length / 2 ) ] + "j2' class='candidato' ><div class='cuadroCandidato'><div class='imgCandidato'><img src='../resources/imgs/ec" + msg[ i + ( msg.length / 2 ) ] + ".jpg' width='220' height='220'></div>" + soloNombre[ 0 ] + "</div></a> " );
+      }
+      $( "#candidatos" ).children().click( true );
+    });
+    
+  socket.on( "activaOverlayLogoVotante", function( msg ){
+    if( msg == 1 ){
+        $( "#overlayLogo" ).fadeToggle( "slow" );
+    }
+  });
+    
+  socket.on( "siguienteSeccionVotante", function( msg ){
+    if( msg == 1 ){
+        window.location.href = "categoria_f.html";
+    }
+  });
+    
+    socket.on( "recibeRefresh", function( msg ){
+    if( msg == 1 ){
+        location.reload();
+    }
+  });
+  
+</script>
+
+</body>
+</html>
