@@ -169,8 +169,13 @@
     
     $( document ).on( "keyup", function( event ){
         if( event.which == "90" ){
-            $( "#overlayLogo" ).fadeToggle( "slow" );
+            $( "#overlayLogo" ).fadeIn( "slow" );
             socket.emit( "activaOverlayLogoDesdeMonitor", 1 );   
+        }
+        
+        if( event.which == "88" ){
+            $( "#overlayLogo" ).fadeOut( "slow" );
+            socket.emit( "desactivaOverlayLogoDesdeMonitor", 1 );   
         }
         
         if( event.which == "77" && hayGanador ){

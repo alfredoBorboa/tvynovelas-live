@@ -25,6 +25,10 @@ io.on('connection', function(socket){
       io.emit( "activaOverlayLogoVotante", msg );
   });
     
+     socket.on( "desactivaOverlayLogoDesdeMonitor", function( msg ){
+      io.emit( "desactivaOverlayLogoVotante", msg );
+  });
+    
   socket.on( "siguienteSeccionMonitor", function( msg ){
       io.emit( "siguienteSeccionVotante", msg );
   });
