@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+<head>
+<title>Votación Live Tv y Novelas 2015</title>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="resources/jquery.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="style.css">
+    
+</head>
+
+<body>
+
+<div id="overlayLogo"><img src="resources/TVyNovelasWeb.png"/></div>
+    
+<div id="overlayPreGanador">
+</div>
+
+<div id="overlayGanador">
+    <div id="ganadorTexto">
+        Ganador<br/><br/>
+        <span id="elGanador"></span>
+        <div id="fotoGanador"></div>
+    </div>
+</div>
+    
+<div id="overlayEmpate">
+    <div id="empateTexto">
+        ¡Empate!
+    </div>
+</div>
+    
+<div id="contenedorM">
+<h1>Mejor Tema Musical<span id="votosTotales"></span></h1>
+<div id="candidatosM">
+<div class="candidatoM" id="pc1"><div class="imgCandidatoM"><img src="resources/imgs/pc1.jpg"/></div>Mauricio Arriaga y Eduardo Murguía - Mi corazón es tuyo<br/><br/><span class="conteoM" id="conteoPc1"></span><br/><br/></div>
+<div class="candidatoM" id="pc2"><div class="imgCandidatoM"><img src="resources/imgs/pc2.jpg"/></div>Enrique Iglesias y Marco Antonio Solís - Lo que la vida me robó<br/><br/><span class="conteoM" id="conteoPc2"></span><br/><br/></div>
+<div class="candidatoM" id="pc3"><div class="imgCandidatoM"><img src="resources/imgs/pc3.jpg"/></div>Rio Roma - El color de la pasión<br/><br/><span class="conteoM" id="conteoPc3"></span><br/><br/></div>
+<div class="candidatoM" id="pc4"><div class="imgCandidatoM"><img src="resources/imgs/pc4.jpg"/></div>Armando Manzanero, Noel Schajris, Samo Jesús Navarro - Quiero Amarte<br/><br/><span class="conteoM" id="conteoPc4"></span><br/><br/></div>
+</div> <!-- candidatos -->
+</div> <!-- contenedor -->
+<script>
+  var socket = io();
+  var contador = 0;
+    
+  var idCandidatoDirector;
+  var idConteoDirector;
+  var idContadorDirector;
+  var hayGanador = false;
+
+  var contadores = [ 0, 0, 0, 0 ];
+    
+  var jurados = [ "Pedro Damián", "Mara Patricia Castañeda", "Alfredo Gudinni", "Claudia de Icaza", "Karla Martínez", "Flor Rubio", "Aurora Valle", "Lupita Martínez", "Karina Duprez", "Salvador Mejía", "Nicandro Díaz", "Roberto Hernández", "TVYNOV" ];
+  var aCandidatos = [ "Mauricio Arriaga y Eduardo Murguía - Mi corazón es tuyo", "Enrique Iglesias y Marco Antonio Solís - Lo que la vida me robó", "Rio Roma - El color de la pasión", "Armando Manzanero, Noel Schajris, Samo Jesús Navarro - Quiero Amarte" ];
+  var idCandidatos = [ 1, 2, 3, 4 ];
+
+  socket.on('votoHaciaMonitor', function(msg){
+
+  if( contador < 13 ){
+    
+    var splitMsg = msg.split("");
+    var idCandidato = "#pc" + splitMsg[ 2 ];
+    var idJurado = parseInt( splitMsg[ 4 ], 16 );
+    $( idCandidato ).append( jurados[ idJurado - 1 ] + "<br/>");
+    
+    var idConteo = "#conteoPc" + splitMsg[ 2 ];
+    contadores[ splitMsg[ 2 ] - 1 ]++;
+    $( idConteo ).html( contadores[ splitMsg[ 2 ] - 1 ] );
+    
+    if( idJurado == 1 ){
+        idCandidatoDirector = idCandidato;
+        idConteoDirector = idConteo;
+        idContadorDirector = splitMsg[ 2 ] - 1;
+    }
+  
+    contador++;
+
+    $( "#votosTotales" ).html( contador );
+
+  } // if contador < 13
+  
+  if( contador == 13 ){
+    //$( "#votosTotales" ).html( "Votos Completos" );
+    
+    var votoMaximoAc = Math.max( contadores[ 0 ], contadores[ 1 ], contadores[ 2 ], contadores[ 3 ] ); 
+
+    var arrayGanadores = [];
+    var arrayIdCandidatosG = [];
+      
+    for( var i = 0; i < contadores.length; i++ ){
+      if( contadores[ i ] == votoMaximoAc ){
+        arrayGanadores.push( aCandidatos[ i ] );
+      }
+    }
+    
+    if( arrayGanadores.length == 1 ){
+      //$( "#votosTotales" ).html( "Ganador: " + arrayGanadores[ 0 ] );
+      $( "#overlayPreGanador" ).fadeIn( "slow" );
+      $( "#elGanador" ).append( arrayGanadores[ 0 ] );
+        
+      $( ".candidatoM" ).each( function(){
+          if( $( this ).html().indexOf( arrayGanadores[ 0 ] ) > -1 ){
+             var imgParaGanador = $( this ).children( ".imgCandidatoM" ).clone();
+             $( "#fotoGanador" ).append( imgParaGanador );
+          }
+        });
+      
+      hayGanador = true;
+      $( "#overlayGanador" ).fadeToggle( "slow" );
+    }
+      
+    if( arrayGanadores.length > 1 ){
+        
+      contadores[ idContadorDirector ]++;
+      $( idConteoDirector ).html( contadores[ idContadorDirector ] );
+        
+      votoMaximoAc = Math.max( contadores[ 0 ], contadores[ 1 ], contadores[ 2 ], contadores[ 3 ] );
+        
+      arrayGanadores = [];
+        
+      for( var i = 0; i < contadores.length; i++ ){
+      if( contadores[ i ] == votoMaximoAc ){
+        arrayGanadores.push( aCandidatos[ i ] );
+        arrayIdCandidatosG.push( idCandidatos[ i ] );
+      }
+    }
+    if( arrayGanadores.length == 1 ){
+      //$( "#votosTotales" ).html( "Ganador: " + arrayGanadores[ 0 ] );
+      $( "#overlayPreGanador" ).fadeIn( "slow" );
+      $( "#elGanador" ).append( arrayGanadores[ 0 ] );
+        
+      $( ".candidatoM" ).each( function(){
+          if( $( this ).html().indexOf( arrayGanadores[ 0 ] ) > -1 ){
+             var imgParaGanador = $( this ).children( ".imgCandidatoM" ).clone();
+             $( "#fotoGanador" ).append( imgParaGanador );
+          }
+      });
+      hayGanador = true; 
+      $( "#overlayGanador" ).fadeToggle( "slow" );
+    }
+    if( arrayGanadores.length > 1 ){
+        votacionSecundaria( arrayGanadores, arrayIdCandidatosG );
+    }
+      
+    } //if arrayGanadores.length > 1
+    
+    
+  } // if contador == 13
+
+  }); // socket.on voto  
+    
+    function votacionSecundaria( candidatosSecundarios, arrayIdCandidatosG2 ){
+        //$( "#votosTotales" ).html( " Desempate" );
+        $( "#overlayEmpate" ).fadeToggle( "slow" );
+        setTimeout(function(){
+        $( "#overlayEmpate" ).fadeToggle( "slow" );
+        $( "#candidatosM" ).html( "" );
+        contador = 0;
+        contadores = [ 0, 0, 0, 0 ];
+        for( var i = 0; i < candidatosSecundarios.length; i++ ){
+            $( "#candidatosM" ).append( "<div class='candidatoM' id='pc" + arrayIdCandidatosG2[ i ] + "'><div class='imgCandidatoM'><img src='resources/imgs/pc" + arrayIdCandidatosG2[ i ] + ".jpg'/></div>" + candidatosSecundarios[ i ] + "<br/><br/><span class='conteoM' id='conteoPc" + arrayIdCandidatosG2[ i ] + "'></span><br/><br/></div>" );
+        }
+        
+        for( var i = 0; i < arrayIdCandidatosG2.length; i++ ){
+            candidatosSecundarios.push( arrayIdCandidatosG2[ i ] );
+        } 
+        realinea();
+        socket.emit( "convocaSegundaVotacion", candidatosSecundarios );    
+        }, 3000);
+    }// votacionSecundaria
+    
+    $( document ).on( "keyup", function( event ){
+        if( event.which == "90" ){
+            $( "#overlayLogo" ).fadeIn( "slow" );
+            socket.emit( "activaOverlayLogoDesdeMonitor", 1 );   
+        }
+        
+        if( event.which == "88" ){
+            $( "#overlayLogo" ).fadeOut( "slow" );
+            socket.emit( "desactivaOverlayLogoDesdeMonitor", 1 );   
+        }
+        
+        if( event.which == "77" && hayGanador ){
+            socket.emit( "siguienteSeccionMonitor", 1 );   
+            window.location.href = "index16.html";
+        }
+        
+        if( event.which == "82" ){
+            socket.emit( "mandaRefresh", 1 );   
+            location.reload();
+        }
+        
+        if( event.which == "86" ){
+            $( "#overlayPreGanador" ).fadeOut( "slow" );
+        }
+        
+    });
+    
+function realinea(){
+  var numChildCandidatos = $( "#candidatosM" ).children().length; 
+        
+  if( numChildCandidatos == 6 ){
+      $( "#candidatosM:nth-child( 1 )" ).css( "margin-left", "-90px" );
+  }
+      
+  if( numChildCandidatos == 5 ){
+      $( "#candidatosM .candidatoM:nth-child( 1 )" ).css( "margin-left", "0px" );
+  }
+        
+  if( numChildCandidatos == 4 ){
+      $( "#candidatosM .candidatoM:nth-child( 1 )" ).css( "margin-left", "90px" );
+  }
+      
+  if( numChildCandidatos == 3 ){
+      $( "#candidatosM .candidatoM:nth-child( 1 )" ).css( "margin-left", "180px" );
+  }
+      
+  if( numChildCandidatos == 2 ){
+      $( "#candidatosM .candidatoM:nth-child( 1 )" ).css( "margin-left", "290px" );
+  }
+      
+  }
+  realinea();
+    
+</script>
+</body>
+</html>

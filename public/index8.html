@@ -13,6 +13,9 @@
 <body>
 
 <div id="overlayLogo"><img src="resources/TVyNovelasWeb.png"/></div>
+    
+<div id="overlayPreGanador">
+</div>
 
 <div id="overlayGanador">
     <div id="ganadorTexto">
@@ -93,6 +96,7 @@
     
     if( arrayGanadores.length == 1 ){
       //$( "#votosTotales" ).html( "Ganador: " + arrayGanadores[ 0 ] );
+      $( "#overlayPreGanador" ).fadeIn( "slow" );
       $( "#elGanador" ).append( arrayGanadores[ 0 ] );
         
       $( ".candidatoM" ).each( function(){
@@ -123,6 +127,7 @@
     }
     if( arrayGanadores.length == 1 ){
       //$( "#votosTotales" ).html( "Ganador: " + arrayGanadores[ 0 ] );
+      $( "#overlayPreGanador" ).fadeIn( "slow" );
       $( "#elGanador" ).append( arrayGanadores[ 0 ] );
         
       $( ".candidatoM" ).each( function(){
@@ -184,6 +189,10 @@
         if( event.which == "82" ){
             socket.emit( "mandaRefresh", 1 );   
             location.reload();
+        }
+        
+        if( event.which == "86" ){
+            $( "#overlayPreGanador" ).fadeOut( "slow" );
         }
         
     });

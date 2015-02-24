@@ -13,6 +13,9 @@
 <body>
 
 <div id="overlayLogo"><img src="resources/TVyNovelasWeb.png"/></div>
+    
+<div id="overlayPreGanador">
+</div>
 
 <div id="overlayGanador">
     <div id="ganadorTexto">
@@ -29,7 +32,7 @@
 </div>
     
 <div id="contenedorM">
-<h1>Mejor Actor Coestelar<span id="votosTotales"></span></h1>
+<h1>Mejor Primera Actriz<span id="votosTotales"></span></h1>
 <div id="candidatosM">
 <div class="candidatoM" id="kc1"><div class="imgCandidatoM"><img src="resources/imgs/kc1.jpg"/></div>Ana Bertha Espín<br/><br/><span class="conteoM" id="conteoKc1"></span><br/><br/></div>
 <div class="candidatoM" id="kc2"><div class="imgCandidatoM"><img src="resources/imgs/kc2.jpg"/></div>Helena Rojo<br/><br/><span class="conteoM" id="conteoKc2"></span><br/><br/></div>
@@ -93,6 +96,7 @@
     
     if( arrayGanadores.length == 1 ){
       //$( "#votosTotales" ).html( "Ganador: " + arrayGanadores[ 0 ] );
+      $( "#overlayPreGanador" ).fadeIn( "slow" );
       $( "#elGanador" ).append( arrayGanadores[ 0 ] );
         
       $( ".candidatoM" ).each( function(){
@@ -123,6 +127,7 @@
     }
     if( arrayGanadores.length == 1 ){
       //$( "#votosTotales" ).html( "Ganador: " + arrayGanadores[ 0 ] );
+      $( "#overlayPreGanador" ).fadeIn( "slow" );
       $( "#elGanador" ).append( arrayGanadores[ 0 ] );
         
       $( ".candidatoM" ).each( function(){
@@ -184,6 +189,10 @@
         if( event.which == "82" ){
             socket.emit( "mandaRefresh", 1 );   
             location.reload();
+        }
+        
+        if( event.which == "86" ){
+            $( "#overlayPreGanador" ).fadeOut( "slow" );
         }
         
     });

@@ -231,6 +231,21 @@ body{
     background-image: url(resources/tile2.png);
 }
 
+#overlayPreGanador{
+    position: absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    background-color: #FFF;
+    text-align: center;
+    color: #000;
+    display: none;
+    background-image: url(resources/TVyNovelasWeb.png);
+    background-size: 100% auto;
+    z-index: 4;
+}
+
 #ganadorTexto{
     position:absolute;
     width: 300px;
