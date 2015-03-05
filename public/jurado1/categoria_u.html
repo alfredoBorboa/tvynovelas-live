@@ -7,6 +7,13 @@
 <script src="../resources/jquery.min.js"></script>
     
 <link rel="stylesheet" type="text/css" href="../style.css">
+    
+<style>
+    i{
+        font-size:11px;
+        display:none;
+    }
+</style>
 
 </head>
 
@@ -27,10 +34,10 @@ Por favor confirma tu voto a<br/><br/>
 <div id="contenedor" >
 <h1>Mejor Programa Especial</h1>
 <div id="candidatos"> 
-<a href="javascript:void(0)" valor="uc1j1" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/uc1.jpg" width="220" height="220"></div>Producción: Luis de Llano, Marco Flavio Cruz, Carlo Antonio Rico y Juan Carlos López</div></a>  
-<a href="javascript:void(0)" valor="uc2j1" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/uc2.jpg" width="220" height="220"></div>Producción: Ricardo Villacorta</div></a>
-<a href="javascript:void(0)" valor="uc3j1" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/uc3.jpg" width="220" height="220"></div>Producción: Luis de Llano, Marco Flavio Cruz, Carlo Antonio Rico y Juan Carlos López (2)</div></a>
-<a href="javascript:void(0)" valor="uc4j1" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/uc4.jpg" width="220" height="220"></div>Producción: Luis de Llano, Marco Flavio Cruz, Carlo Antonio Rico y Juan Carlos López (3)</div></a>
+<a href="javascript:void(0)" valor="uc1j1" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/uc1.jpg" width="220" height="220"></div>Luis de Llano, Marco Flavio Cruz, Carlo Antonio Rico y Juan Carlos López<br/><i>Festival Acapulco 2014</i>&nbsp;</div></a>  
+<a href="javascript:void(0)" valor="uc2j1" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/uc2.jpg" width="220" height="220"></div>Ricardo Villacorta<br/><br/><br/><br/><i>Chespirito gracias por siempre</i>&nbsp;</div></a>
+<a href="javascript:void(0)" valor="uc3j1" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/uc3.jpg" width="220" height="220"></div>Luis de Llano, Marco Flavio Cruz, Carlo Antonio Rico y Juan Carlos López<br/><i>Nuestra Belleza México 2014</i>&nbsp;</div></a>
+<a href="javascript:void(0)" valor="uc4j1" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/uc4.jpg" width="220" height="220"></div>Luis de Llano, Marco Flavio Cruz, Carlo Antonio Rico y Juan Carlos López<br/><i>Grandes temas de telenovela</i>&nbsp;</div></a>
 </div><!-- candidatos -->
 </div><!-- contenedor -->
 <script>
@@ -45,21 +52,24 @@ Por favor confirma tu voto a<br/><br/>
       var mensajeLargo = $( this ).children( ".cuadroCandidato" ).html();
       var nombreCandidato = mensajeLargo.replace( "<div class=\"imgCandidato\"><img src=\"../resources/imgs/" + idImagen[ 0 ] + ".jpg\" width=\"220\" height=\"220\"></div>" , "");
       $( "#nombreCandidatoVotado" ).html( nombreCandidato );
-      $( "#overlayConfirmacion" ).fadeToggle( "slow" );
+      $( "#overlayConfirmacion" ).fadeToggle( "fast" );
+      $( "i" ).fadeToggle( "slow" );
       mensaje = $( this ).attr( "valor");
   });
     
   $( "#btnConfirma" ).on( 'click', function(){
       socket.emit( "votoDesdeJurado", mensaje );
       $("*[valor='" + mensaje + "']").children( ".cuadroCandidato" ).children( ".imgCandidato" ).append( "<div id='palomita' style='position:absolute;margin-top:-190px'><img src='../resources/paloma.png'/></div>" );
-      $( "#overlayConfirmacion" ).fadeToggle( "slow" );
+      $( "#overlayConfirmacion" ).fadeToggle( "fast" );
+      $( "i" ).fadeToggle( "fast" );
       //$( "#candidatos" ).children().click( false );
       $( "#overlayBlockVoto" ).show();
       return false;
   });
     
   $( "#btnCancela" ).on( 'click', function(){
-      $( "#overlayConfirmacion" ).fadeToggle( "slow" );
+      $( "#overlayConfirmacion" ).fadeToggle( "fast" );
+      $( "i" ).fadeToggle( "fast" );
   });
     
   
@@ -67,7 +77,7 @@ Por favor confirma tu voto a<br/><br/>
   socket.on( "ordenaSegundaVotacion", function( msg ){
       $( "#candidatos" ).html( "" );
       for( var i = 0; i < ( msg.length / 2 ); i++ ){
-          var soloNombre = msg[ i ].split( "<" );
+          var soloNombre = msg[ i ].split( "&nbsp;" );
         $( "#candidatos" ).append( "<a href='javascript:void(0)' valor='uc" + msg[ i + ( msg.length / 2 ) ] + "j1' class='candidato' ><div class='cuadroCandidato'><div class='imgCandidato'><img src='../resources/imgs/uc" + msg[ i + ( msg.length / 2 ) ] + ".jpg' width='220' height='220'></div>" + soloNombre[ 0 ] + "</div></a> " );
       }
       //$( "#candidatos" ).children().click( true );
@@ -87,11 +97,139 @@ Por favor confirma tu voto a<br/><br/>
     }
   });
     
-  socket.on( "siguienteSeccionVotante", function( msg ){
+  /*socket.on( "siguienteSeccionVotante", function( msg ){
     if( msg == 1 ){
         window.location.href = "categoria_v.html";
     }
-  });
+  });*/
+    
+  //---------------------------------------cues de teclas para llevar a secciones  
+    socket.on( "jveaA", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_a.html";
+        }
+    });
+    
+    socket.on( "jveaB", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_b.html";
+        }
+    });
+    
+    socket.on( "jveaC", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_c.html";
+        }
+    });
+    
+    socket.on( "jveaD", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_d.html";
+        }
+    });
+    
+    socket.on( "jveaE", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_e.html";
+        }
+    });
+    
+    socket.on( "jveaF", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_f.html";
+        }
+    });
+    
+    socket.on( "jveaG", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_g.html";
+        }
+    });
+    
+    socket.on( "jveaH", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_h.html";
+        }
+    });
+    
+    socket.on( "jveaI", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_i.html";
+        }
+    });
+    
+    socket.on( "jveaK", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_k.html";
+        }
+    });
+    
+    socket.on( "jveaL", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_l.html";
+        }
+    });
+    
+    socket.on( "jveaM", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_m.html";
+        }
+    });
+    
+    socket.on( "jveaN", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_n.html";
+        }
+    });
+    
+    socket.on( "jveaO", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_o.html";
+        }
+    });
+    
+    socket.on( "jveaP", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_p.html";
+        }
+    });
+    
+    socket.on( "jveaQ", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_q.html";
+        }
+    });
+    
+    socket.on( "jveaR", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_r.html";
+        }
+    });
+    
+    socket.on( "jveaS", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_s.html";
+        }
+    });
+    
+    socket.on( "jveaT", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_t.html";
+        }
+    });
+    
+    socket.on( "jveaU", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_u.html";
+        }
+    });
+    
+    socket.on( "jveaV", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_v.html";
+        }
+    });
+  //---------------------------------------cues de teclas para llevar a secciones  
     
     socket.on( "recibeRefresh", function( msg ){
     if( msg == 1 ){

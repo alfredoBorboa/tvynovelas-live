@@ -8,6 +8,12 @@
 
 <link rel="stylesheet" type="text/css" href="style.css">
     
+<style>
+    i{
+        display:none;
+    }
+</style>
+    
 </head>
 
 <body>
@@ -34,10 +40,10 @@
 <div id="contenedorM">
 <h1>Mejor Programa de Entretenimiento<span id="votosTotales"></span></h1>
 <div id="candidatosM">
-<div class="candidatoM" id="tc1"><div class="imgCandidatoM"><img src="resources/imgs/tc1.jpg"/></div>Producción: Facundo<br/><br/><span class="conteoM" id="conteoTc1"></span><br/><br/></div>
-<div class="candidatoM" id="tc2"><div class="imgCandidatoM"><img src="resources/imgs/tc2.jpg"/></div>Producción: Eduardo Suárez y Andrea Salas<br/><br/><span class="conteoM" id="conteoTc2"></span><br/><br/></div>
-<div class="candidatoM" id="tc3"><div class="imgCandidatoM"><img src="resources/imgs/tc3.jpg"/></div>Producción: Yordi Rosado, Manolo Fernández y Mauricio Castillo<br/><br/><span class="conteoM" id="conteoTc3"></span><br/><br/></div>
-<div class="candidatoM" id="tc4"><div class="imgCandidatoM"><img src="resources/imgs/tc4.jpg"/></div>Producción: Eduardo Suárez<br/><br/><span class="conteoM" id="conteoTc4"></span><br/><br/></div>
+<div class="candidatoM" id="tc1"><div class="imgCandidatoM"><img src="resources/imgs/tc1.jpg"/></div>Facundo<br><br><br><i>Turnocturno</i>&nbsp;<br/><br/><span class="conteoM" id="conteoTc1"></span><br/><br/></div>
+<div class="candidatoM" id="tc2"><div class="imgCandidatoM"><img src="resources/imgs/tc2.jpg"/></div>Eduardo Suárez y Andrea Salas<br><br><i>Puedes con cien</i>&nbsp;<br/><br/><span class="conteoM" id="conteoTc2"></span><br/><br/></div>
+<div class="candidatoM" id="tc3"><div class="imgCandidatoM"><img src="resources/imgs/tc3.jpg"/></div>Yordi Rosado, Manolo Fernández y Mauricio Castillo<br><i>Zona Ruda</i>&nbsp;<br/><br/><span class="conteoM" id="conteoTc3"></span><br/><br/></div>
+<div class="candidatoM" id="tc4"><div class="imgCandidatoM"><img src="resources/imgs/tc4.jpg"/></div>Eduardo Suárez<br><br><br><i>Me caigo de risa</i>&nbsp;<br/><br/><span class="conteoM" id="conteoTc4"></span><br/><br/></div>
 </div> <!-- candidatos -->
 </div> <!-- contenedor -->
 <script>
@@ -52,7 +58,7 @@
   var contadores = [ 0, 0, 0, 0 ];
     
   var jurados = [ "Pedro Damián", "Mara Patricia Castañeda", "Alfredo Gudinni", "Claudia de Icaza", "Karla Martínez", "Flor Rubio", "Aurora Valle", "Lupita Martínez", "Karina Duprez", "Salvador Mejía", "Nicandro Díaz", "Roberto Hernández", "TVYNOV" ];
-  var aCandidatos = [ "Producción: Facundo", "Producción: Eduardo Suárez y Andrea Salas", "Producción: Yordi Rosado, Manolo Fernández y Mauricio Castillo", "Producción: Eduardo Suárez" ];
+  var aCandidatos = [ "Facundo<br><br><br><i>Turnocturno</i>&nbsp;", "Eduardo Suárez y Andrea Salas<br><br><i>Puedes con cien</i>&nbsp;", "Yordi Rosado, Manolo Fernández y Mauricio Castillo<br><i>Zona Ruda</i>&nbsp;", "Eduardo Suárez<br><br><br><i>Me caigo de risa</i>&nbsp;" ];
   var idCandidatos = [ 1, 2, 3, 4 ];
 
   socket.on('votoHaciaMonitor', function(msg){
@@ -99,6 +105,8 @@
       $( "#overlayPreGanador" ).fadeIn( "slow" );
       $( "#elGanador" ).append( arrayGanadores[ 0 ] );
         
+      socket.emit( "mandaImprimir", arrayGanadores[ 0 ] );
+        
       $( ".candidatoM" ).each( function(){
           if( $( this ).html().indexOf( arrayGanadores[ 0 ] ) > -1 ){
              var imgParaGanador = $( this ).children( ".imgCandidatoM" ).clone();
@@ -129,6 +137,8 @@
       //$( "#votosTotales" ).html( "Ganador: " + arrayGanadores[ 0 ] );
       $( "#overlayPreGanador" ).fadeIn( "slow" );
       $( "#elGanador" ).append( arrayGanadores[ 0 ] );
+        
+      socket.emit( "mandaImprimir", arrayGanadores[ 0 ] );
         
       $( ".candidatoM" ).each( function(){
           if( $( this ).html().indexOf( arrayGanadores[ 0 ] ) > -1 ){
@@ -181,11 +191,6 @@
             socket.emit( "desactivaOverlayLogoDesdeMonitor", 1 );   
         }
         
-        if( event.which == "77" && hayGanador ){
-            socket.emit( "siguienteSeccionMonitor", 1 );   
-            window.location.href = "index20.html";
-        }
-        
         if( event.which == "82" ){
             socket.emit( "mandaRefresh", 1 );   
             location.reload();
@@ -194,6 +199,113 @@
         if( event.which == "86" ){
             $( "#overlayPreGanador" ).fadeOut( "slow" );
         }
+        
+        //-----------------------------------------cues para secciones
+        if( event.which == "49" ){ //1
+            socket.emit( "veaA", 1 );   
+            window.location.href = "index.html";
+        }
+        
+        if( event.which == "50" ){ //2
+            socket.emit( "veaB", 1 );   
+            window.location.href = "index2.html";
+        }
+        
+        if( event.which == "51" ){ //3
+            socket.emit( "veaC", 1 );   
+            window.location.href = "index3.html";
+        }
+        
+        if( event.which == "52" ){ //4
+            socket.emit( "veaD", 1 );   
+            window.location.href = "index4.html";
+        }
+        
+        if( event.which == "53" ){ //5
+            socket.emit( "veaE", 1 );   
+            window.location.href = "index5.html";
+        }
+        
+        if( event.which == "54" ){ //6
+            socket.emit( "veaF", 1 );   
+            window.location.href = "index6.html";
+        }
+        
+        if( event.which == "55" ){ //7
+            socket.emit( "veaG", 1 );   
+            window.location.href = "index7.html";
+        }
+        
+        if( event.which == "56" ){ //8
+            socket.emit( "veaH", 1 );   
+            window.location.href = "index8.html";
+        }
+        
+        if( event.which == "57" ){ //9
+            socket.emit( "veaI", 1 );   
+            window.location.href = "index9.html";
+        }
+        
+        if( event.which == "48" ){ //0
+            socket.emit( "veaK", 1 );   
+            window.location.href = "index10.html";
+        }
+        
+        if( event.which == "222" ){ //'
+            socket.emit( "veaL", 1 );   
+            window.location.href = "index11.html";
+        }
+        
+        if( event.which == "187" ){ //¡
+            socket.emit( "veaM", 1 );   
+            window.location.href = "index12.html";
+        }
+        
+        if( event.which == "65" ){ //a
+            socket.emit( "veaN", 1 );   
+            window.location.href = "index13.html";
+        }
+        
+        if( event.which == "83" ){ //s
+            socket.emit( "veaO", 1 );   
+            window.location.href = "index14.html";
+        }
+        
+        if( event.which == "68" ){ //d
+            socket.emit( "veaP", 1 );   
+            window.location.href = "index15.html";
+        }
+        
+        if( event.which == "70" ){ //f
+            socket.emit( "veaQ", 1 );   
+            window.location.href = "index16.html";
+        }
+        
+        if( event.which == "71" ){ //g
+            socket.emit( "veaR", 1 );   
+            window.location.href = "index17.html";
+        }
+        
+        if( event.which == "72" ){ //h
+            socket.emit( "veaS", 1 );   
+            window.location.href = "index18.html";
+        }
+        
+        if( event.which == "74" ){ //j
+            socket.emit( "veaT", 1 );   
+            window.location.href = "index19.html";
+        }
+        
+        if( event.which == "75" ){ //k
+            socket.emit( "veaU", 1 );   
+            window.location.href = "index20.html";
+        }
+        
+        if( event.which == "76" ){ //l
+            socket.emit( "veaV", 1 );   
+            window.location.href = "index21.html";
+        }
+        //-----------------------------------------cues para secciones
         
     });
     
@@ -209,7 +321,7 @@ function realinea(){
   }
         
   if( numChildCandidatos == 4 ){
-      $( "#candidatosM .candidatoM:nth-child( 1 )" ).css( "margin-left", "90px" );
+      $( "#candidatosM .candidatoM:nth-child( 1 )" ).css( "margin-left", "100px" );
   }
       
   if( numChildCandidatos == 3 ){

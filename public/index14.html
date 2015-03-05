@@ -8,6 +8,12 @@
 
 <link rel="stylesheet" type="text/css" href="style.css">
     
+<style>
+    #ganadorTexto{
+        margin-top: -300px;
+    }
+</style>
+    
 </head>
 
 <body>
@@ -34,11 +40,11 @@
 <div id="contenedorM">
 <h1>Mejor Reparto<span id="votosTotales"></span></h1>
 <div id="candidatosM">
-<div class="candidatoM" id="oc1"><div class="imgCandidatoM"><img src="resources/imgs/oc1.jpg"/></div>El color de la pasión<br/><br/><span class="conteoM" id="conteoOc1"></span><br/><br/></div>
-<div class="candidatoM" id="oc2"><div class="imgCandidatoM"><img src="resources/imgs/oc2.jpg"/></div>Que pobres tan ricos<br/><br/><span class="conteoM" id="conteoOc2"></span><br/><br/></div>
-<div class="candidatoM" id="oc3"><div class="imgCandidatoM"><img src="resources/imgs/oc3.jpg"/></div>Yo no creo en los hombres<br/><br/><span class="conteoM" id="conteoOc3"></span><br/><br/></div>
-<div class="candidatoM" id="oc4"><div class="imgCandidatoM"><img src="resources/imgs/oc4.jpg"/></div>Lo que la vida me robó<br/><br/><span class="conteoM" id="conteoOc4"></span><br/><br/></div>
-<div class="candidatoM" id="oc5"><div class="imgCandidatoM"><img src="resources/imgs/oc5.jpg"/></div>Mi corazón es tuyo<br/><br/><span class="conteoM" id="conteoOc5"></span><br/><br/></div>
+<div class="candidatoM" id="oc1"><div class="imgCandidatoM"><img src="resources/imgs/oc1.jpg"/></div>Esmeralda Pimentel<br>Erick Elías<br>Claudia Ramírez<br>Moises Arizmendi<br>Eugenia Cauduro<br>René Strickler<br>Helena Rojo<br>Luis Couturier<br><i>El color de la pasión</i>&nbsp;<br/><br/><span class="conteoM" id="conteoOc1"></span><br/><br/></div>
+<div class="candidatoM" id="oc2"><div class="imgCandidatoM"><img src="resources/imgs/oc2.jpg"/></div>Zuria Vega<br>Jaime Camil<br>Ingrid Martz<br>Mark Tacher<br>Sylvia Pasquel<br>Arturo Peniche<br>Queta Lavat<br>Manuel 'El Flaco' Ibañez<br><i>Que pobres tan ricos</i>&nbsp;<br/><br/><span class="conteoM" id="conteoOc2"></span><br/><br/></div>
+<div class="candidatoM" id="oc3"><div class="imgCandidatoM"><img src="resources/imgs/oc3.jpg"/></div>Adriana Louvier<br>Gabriel Soto<br>Azela Robinson<br>Flavio Medina<br>Fabiola Guajardo<br>Pedro de Tavira<br>Rosa María Bianchi<br>Alejandro Camacho<br><i>Yo no creo en los hombres</i>&nbsp;<br/><br/><span class="conteoM" id="conteoOc3"></span><br/><br/></div>
+<div class="candidatoM" id="oc4"><div class="imgCandidatoM"><img src="resources/imgs/oc4.jpg"/></div>Angelique Boyer<br>Sebastián Rulli<br>Daniela Castro<br>Alberto Estrella<br>Verónica Jaspeado<br>Luis Roberto Guzmán<br>Ana Bertha Espín<br>Eric del Castillo<br><i>Lo que la vida me robó</i>&nbsp;<br/><br/><span class="conteoM" id="conteoOc4"></span><br/><br/></div>
+<div class="candidatoM" id="oc5"><div class="imgCandidatoM"><img src="resources/imgs/oc5.jpg"/></div>Silvia Navarro<br>Jorge Salinas<br>Mayrín Villanueva<br>Lisardo<br>Fabiola Campomanes<br>Pablo Montero<br>Carmen Salinas<br>René Casados<br><i>Mi corazón es tuyo</i>&nbsp;<br/><br/><span class="conteoM" id="conteoOc5"></span><br/><br/></div>
 </div> <!-- candidatos -->
 </div> <!-- contenedor -->
 <script>
@@ -53,7 +59,7 @@
   var contadores = [ 0, 0, 0, 0, 0 ];
     
   var jurados = [ "Pedro Damián", "Mara Patricia Castañeda", "Alfredo Gudinni", "Claudia de Icaza", "Karla Martínez", "Flor Rubio", "Aurora Valle", "Lupita Martínez", "Karina Duprez", "Salvador Mejía", "Nicandro Díaz", "Roberto Hernández", "TVYNOV" ];
-  var aCandidatos = [ "El color de la pasión", "Que pobres tan ricos", "Yo no creo en los hombres", "Lo que la vida me robó", "Mi corazón es tuyo" ];
+  var aCandidatos = [ "Esmeralda Pimentel<br>Erick Elías<br>Claudia Ramírez<br>Moises Arizmendi<br>Eugenia Cauduro<br>René Strickler<br>Helena Rojo<br>Luis Couturier<br><i>El color de la pasión</i>&nbsp;", "Zuria Vega<br>Jaime Camil<br>Ingrid Martz<br>Mark Tacher<br>Sylvia Pasquel<br>Arturo Peniche<br>Queta Lavat<br>Manuel 'El Flaco' Ibañez<br><i>Que pobres tan ricos</i>&nbsp;", "Adriana Louvier<br>Gabriel Soto<br>Azela Robinson<br>Flavio Medina<br>Fabiola Guajardo<br>Pedro de Tavira<br>Rosa María Bianchi<br>Alejandro Camacho<br><i>Yo no creo en los hombres</i>&nbsp;", "Angelique Boyer<br>Sebastián Rulli<br>Daniela Castro<br>Alberto Estrella<br>Verónica Jaspeado<br>Luis Roberto Guzmán<br>Ana Bertha Espín<br>Eric del Castillo<br><i>Lo que la vida me robó</i>&nbsp;", "Silvia Navarro<br>Jorge Salinas<br>Mayrín Villanueva<br>Lisardo<br>Fabiola Campomanes<br>Pablo Montero<br>Carmen Salinas<br>René Casados<br><i>Mi corazón es tuyo</i>&nbsp;" ];
   var idCandidatos = [ 1, 2, 3, 4, 5 ];
 
   socket.on('votoHaciaMonitor', function(msg){
@@ -100,6 +106,8 @@
       $( "#overlayPreGanador" ).fadeIn( "slow" );
       $( "#elGanador" ).append( arrayGanadores[ 0 ] );
         
+      socket.emit( "mandaImprimir", arrayGanadores[ 0 ] );
+        
       $( ".candidatoM" ).each( function(){
           if( $( this ).html().indexOf( arrayGanadores[ 0 ] ) > -1 ){
              var imgParaGanador = $( this ).children( ".imgCandidatoM" ).clone();
@@ -130,6 +138,8 @@
       //$( "#votosTotales" ).html( "Ganador: " + arrayGanadores[ 0 ] );
       $( "#overlayPreGanador" ).fadeIn( "slow" );
       $( "#elGanador" ).append( arrayGanadores[ 0 ] );
+        
+      socket.emit( "mandaImprimir", arrayGanadores[ 0 ] );
         
       $( ".candidatoM" ).each( function(){
           if( $( this ).html().indexOf( arrayGanadores[ 0 ] ) > -1 ){
@@ -182,11 +192,6 @@
             socket.emit( "desactivaOverlayLogoDesdeMonitor", 1 );   
         }
         
-        if( event.which == "77" && hayGanador ){
-            socket.emit( "siguienteSeccionMonitor", 1 );   
-            window.location.href = "index15.html";
-        }
-        
         if( event.which == "82" ){
             socket.emit( "mandaRefresh", 1 );   
             location.reload();
@@ -195,6 +200,113 @@
         if( event.which == "86" ){
             $( "#overlayPreGanador" ).fadeOut( "slow" );
         }
+        
+        //-----------------------------------------cues para secciones
+        if( event.which == "49" ){ //1
+            socket.emit( "veaA", 1 );   
+            window.location.href = "index.html";
+        }
+        
+        if( event.which == "50" ){ //2
+            socket.emit( "veaB", 1 );   
+            window.location.href = "index2.html";
+        }
+        
+        if( event.which == "51" ){ //3
+            socket.emit( "veaC", 1 );   
+            window.location.href = "index3.html";
+        }
+        
+        if( event.which == "52" ){ //4
+            socket.emit( "veaD", 1 );   
+            window.location.href = "index4.html";
+        }
+        
+        if( event.which == "53" ){ //5
+            socket.emit( "veaE", 1 );   
+            window.location.href = "index5.html";
+        }
+        
+        if( event.which == "54" ){ //6
+            socket.emit( "veaF", 1 );   
+            window.location.href = "index6.html";
+        }
+        
+        if( event.which == "55" ){ //7
+            socket.emit( "veaG", 1 );   
+            window.location.href = "index7.html";
+        }
+        
+        if( event.which == "56" ){ //8
+            socket.emit( "veaH", 1 );   
+            window.location.href = "index8.html";
+        }
+        
+        if( event.which == "57" ){ //9
+            socket.emit( "veaI", 1 );   
+            window.location.href = "index9.html";
+        }
+        
+        if( event.which == "48" ){ //0
+            socket.emit( "veaK", 1 );   
+            window.location.href = "index10.html";
+        }
+        
+        if( event.which == "222" ){ //'
+            socket.emit( "veaL", 1 );   
+            window.location.href = "index11.html";
+        }
+        
+        if( event.which == "187" ){ //¡
+            socket.emit( "veaM", 1 );   
+            window.location.href = "index12.html";
+        }
+        
+        if( event.which == "65" ){ //a
+            socket.emit( "veaN", 1 );   
+            window.location.href = "index13.html";
+        }
+        
+        if( event.which == "83" ){ //s
+            socket.emit( "veaO", 1 );   
+            window.location.href = "index14.html";
+        }
+        
+        if( event.which == "68" ){ //d
+            socket.emit( "veaP", 1 );   
+            window.location.href = "index15.html";
+        }
+        
+        if( event.which == "70" ){ //f
+            socket.emit( "veaQ", 1 );   
+            window.location.href = "index16.html";
+        }
+        
+        if( event.which == "71" ){ //g
+            socket.emit( "veaR", 1 );   
+            window.location.href = "index17.html";
+        }
+        
+        if( event.which == "72" ){ //h
+            socket.emit( "veaS", 1 );   
+            window.location.href = "index18.html";
+        }
+        
+        if( event.which == "74" ){ //j
+            socket.emit( "veaT", 1 );   
+            window.location.href = "index19.html";
+        }
+        
+        if( event.which == "75" ){ //k
+            socket.emit( "veaU", 1 );   
+            window.location.href = "index20.html";
+        }
+        
+        if( event.which == "76" ){ //l
+            socket.emit( "veaV", 1 );   
+            window.location.href = "index21.html";
+        }
+        //-----------------------------------------cues para secciones
         
     });
     

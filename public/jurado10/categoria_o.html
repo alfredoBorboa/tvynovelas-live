@@ -7,6 +7,28 @@
 <script src="../resources/jquery.min.js"></script>
     
 <link rel="stylesheet" type="text/css" href="../style.css">
+    
+<style>
+.cuadroCandidato{
+    width:147px;
+}
+.imgCandidato{
+    width:147px;
+    height:147px
+}
+.imgCandidato img{
+    width:147px;
+    height: auto;
+}
+    
+.candidato{
+    font-size:9.5px;
+}
+    
+#confirmaVoto{
+    margin-top:-270px;
+}
+</style>
 
 </head>
 
@@ -27,11 +49,11 @@ Por favor confirma tu voto a<br/><br/>
 <div id="contenedor" >
 <h1>Mejor Reparto</h1>
 <div id="candidatos"> 
-<a href="javascript:void(0)" valor="oc1ja" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/oc1.jpg" width="220" height="220"></div>El color de la pasión</div></a>  
-<a href="javascript:void(0)" valor="oc2ja" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/oc2.jpg" width="220" height="220"></div>Que pobres tan ricos</div></a>
-<a href="javascript:void(0)" valor="oc3ja" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/oc3.jpg" width="220" height="220"></div>Yo no creo en los hombres</div></a>
-<a href="javascript:void(0)" valor="oc4ja" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/oc4.jpg" width="220" height="220"></div>Lo que la vida me robó</div></a>
-<a href="javascript:void(0)" valor="oc5ja" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/oc5.jpg" width="220" height="220"></div>Mi corazón es tuyo</div></a>
+<a href="javascript:void(0)" valor="oc1ja" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/oc1.jpg" width="220" height="220"></div>Esmeralda Pimentel<br/>Erick Elías<br/>Claudia Ramírez<br/>Moises Arizmendi<br/>Eugenia Cauduro<br/>René Strickler<br/>Helena Rojo<br/>Luis Couturier<br/><i>El color de la pasión</i>&nbsp;</div></a>  
+<a href="javascript:void(0)" valor="oc2ja" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/oc2.jpg" width="220" height="220"></div>Zuria Vega<br/>Jaime Camil<br/>Ingrid Martz<br/>Mark Tacher<br/>Sylvia Pasquel<br/>Arturo Peniche<br/>Queta Lavat<br/>Manuel 'El Flaco' Ibañez<br/><i>Que pobres tan ricos</i>&nbsp;</div></a>
+<a href="javascript:void(0)" valor="oc3ja" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/oc3.jpg" width="220" height="220"></div>Adriana Louvier<br/>Gabriel Soto<br/>Azela Robinson<br/>Flavio Medina<br/>Fabiola Guajardo<br/>Pedro de Tavira<br/>Rosa María Bianchi<br/>Alejandro Camacho<br/><i>Yo no creo en los hombres</i>&nbsp;</div></a>
+<a href="javascript:void(0)" valor="oc4ja" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/oc4.jpg" width="220" height="220"></div>Angelique Boyer<br/>Sebastián Rulli<br/>Daniela Castro<br/>Alberto Estrella<br/>Verónica Jaspeado<br/>Luis Roberto Guzmán<br/>Ana Bertha Espín<br/>Eric del Castillo<br/><i>Lo que la vida me robó</i>&nbsp;</div></a>
+<a href="javascript:void(0)" valor="oc5ja" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/oc5.jpg" width="220" height="220"></div>Silvia Navarro<br/>Jorge Salinas<br/>Mayrín Villanueva<br/>Lisardo<br/>Fabiola Campomanes<br/>Pablo Montero<br/>Carmen Salinas<br/>René Casados<br/><i>Mi corazón es tuyo</i>&nbsp;</div></a>
 </div><!-- candidatos -->
 </div><!-- contenedor -->
 <script>
@@ -52,7 +74,7 @@ Por favor confirma tu voto a<br/><br/>
     
   $( "#btnConfirma" ).on( 'click', function(){
       socket.emit( "votoDesdeJurado", mensaje );
-      $("*[valor='" + mensaje + "']").children( ".cuadroCandidato" ).children( ".imgCandidato" ).append( "<div id='palomita' style='position:absolute;margin-top:-190px'><img src='../resources/paloma.png'/></div>" );
+      $("*[valor='" + mensaje + "']").children( ".cuadroCandidato" ).children( ".imgCandidato" ).append( "<div id='palomita' style='position:absolute;margin-top:-147px'><img src='../resources/paloma.png'/></div>" );
       $( "#overlayConfirmacion" ).fadeToggle( "slow" );
       //$( "#candidatos" ).children().click( false );
       $( "#overlayBlockVoto" ).show();
@@ -68,7 +90,7 @@ Por favor confirma tu voto a<br/><br/>
   socket.on( "ordenaSegundaVotacion", function( msg ){
       $( "#candidatos" ).html( "" );
       for( var i = 0; i < ( msg.length / 2 ); i++ ){
-          var soloNombre = msg[ i ].split( "<" );
+          var soloNombre = msg[ i ].split( "&nbsp;" );
         $( "#candidatos" ).append( "<a href='javascript:void(0)' valor='oc" + msg[ i + ( msg.length / 2 ) ] + "ja' class='candidato' ><div class='cuadroCandidato'><div class='imgCandidato'><img src='../resources/imgs/oc" + msg[ i + ( msg.length / 2 ) ] + ".jpg' width='220' height='220'></div>" + soloNombre[ 0 ] + "</div></a> " );
       }
       //$( "#candidatos" ).children().click( true );
@@ -88,11 +110,139 @@ Por favor confirma tu voto a<br/><br/>
     }
   });
     
-  socket.on( "siguienteSeccionVotante", function( msg ){
+  /*socket.on( "siguienteSeccionVotante", function( msg ){
     if( msg == 1 ){
         window.location.href = "categoria_p.html";
     }
-  });
+  });*/
+    
+  //---------------------------------------cues de teclas para llevar a secciones  
+    socket.on( "jveaA", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_a.html";
+        }
+    });
+    
+    socket.on( "jveaB", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_b.html";
+        }
+    });
+    
+    socket.on( "jveaC", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_c.html";
+        }
+    });
+    
+    socket.on( "jveaD", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_d.html";
+        }
+    });
+    
+    socket.on( "jveaE", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_e.html";
+        }
+    });
+    
+    socket.on( "jveaF", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_f.html";
+        }
+    });
+    
+    socket.on( "jveaG", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_g.html";
+        }
+    });
+    
+    socket.on( "jveaH", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_h.html";
+        }
+    });
+    
+    socket.on( "jveaI", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_i.html";
+        }
+    });
+    
+    socket.on( "jveaK", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_k.html";
+        }
+    });
+    
+    socket.on( "jveaL", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_l.html";
+        }
+    });
+    
+    socket.on( "jveaM", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_m.html";
+        }
+    });
+    
+    socket.on( "jveaN", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_n.html";
+        }
+    });
+    
+    socket.on( "jveaO", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_o.html";
+        }
+    });
+    
+    socket.on( "jveaP", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_p.html";
+        }
+    });
+    
+    socket.on( "jveaQ", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_q.html";
+        }
+    });
+    
+    socket.on( "jveaR", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_r.html";
+        }
+    });
+    
+    socket.on( "jveaS", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_s.html";
+        }
+    });
+    
+    socket.on( "jveaT", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_t.html";
+        }
+    });
+    
+    socket.on( "jveaU", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_u.html";
+        }
+    });
+    
+    socket.on( "jveaV", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_v.html";
+        }
+    });
+  //---------------------------------------cues de teclas para llevar a secciones  
     
     socket.on( "recibeRefresh", function( msg ){
     if( msg == 1 ){
@@ -107,16 +257,16 @@ Por favor confirma tu voto a<br/><br/>
       $( "#candidatos a:nth-child( 5 )" ).children( ".cuadroCandidato" ).css( "margin-left", "220px" );
   }
       
-  if( numChildCandidatos == 5 ){
-      $( "#candidatos a:nth-child( 5 )" ).children( ".cuadroCandidato" ).css( "margin-left", "320px" );
+  if( numChildCandidatos == 4 ){
+      $( "#candidatos a:nth-child( 1 )" ).children( ".cuadroCandidato" ).css( "margin-left", "100px" );
   }
       
   if( numChildCandidatos == 3 ){
-      $( "#candidatos a:nth-child( 1 )" ).children( ".cuadroCandidato" ).css( "margin-left", "120px" );
+      $( "#candidatos a:nth-child( 1 )" ).children( ".cuadroCandidato" ).css( "margin-left", "170px" );
   }
       
   if( numChildCandidatos == 2 ){
-      $( "#candidatos a:nth-child( 1 )" ).children( ".cuadroCandidato" ).css( "margin-left", "220px" );
+      $( "#candidatos a:nth-child( 1 )" ).children( ".cuadroCandidato" ).css( "margin-left", "260px" );
   }
       
   }

@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+<title>Votación Live Tv y Novelas 2015</title>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="resources/jquery.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="style.css">
+    
+<style>
+    i{
+        color:#000;
+        font-size:25px;
+    }
+</style>
+    
+</head>
+
+<body style="background-color:#FFF;text-align:center;color:#000;background-image:none;font-size:45px;padding-top:100px;">
+
+    
+<script>
+ var socket = io();
+ socket.on( "imprime", function( msg ){
+        $( "body" ).html( msg );
+    });
+</script>
+</body>
+</html>

@@ -27,10 +27,10 @@ Por favor confirma tu voto a<br/><br/>
 <div id="contenedor" >
 <h1>Mejor Primera Actriz</h1>
 <div id="candidatos"> 
-<a href="javascript:void(0)" valor="kc1j8" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/kc1.jpg" width="220" height="220"></div>Ana Bertha Espín</div></a>  
-<a href="javascript:void(0)" valor="kc2j8" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/kc2.jpg" width="220" height="220"></div>Helena Rojo</div></a>
-<a href="javascript:void(0)" valor="kc3j8" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/kc3.jpg" width="220" height="220"></div>Rosa María Bianchi</div></a>
-<a href="javascript:void(0)" valor="kc4j8" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/kc4.jpg" width="220" height="220"></div>Patricia Reyes Spíndola</div></a>
+<a href="javascript:void(0)" valor="kc1j8" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/kc1.jpg" width="220" height="220"></div>Ana Bertha Espín<br/><i>Lo que la vida me robó</i>&nbsp;</div></a>  
+<a href="javascript:void(0)" valor="kc2j8" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/kc2.jpg" width="220" height="220"></div>Helena Rojo<br/><i>El color de la pasión</i>&nbsp;</div></a>
+<a href="javascript:void(0)" valor="kc3j8" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/kc3.jpg" width="220" height="220"></div>Rosa María Bianchi<br/><i>Yo no creo en los hombres</i>&nbsp;</div></a>
+<a href="javascript:void(0)" valor="kc4j8" class="candidato" ><div class="cuadroCandidato"><div class="imgCandidato"><img src="../resources/imgs/kc4.jpg" width="220" height="220"></div>Patricia Reyes Spíndola<br/><i>El color de la pasión</i>&nbsp;</div></a>
 </div><!-- candidatos -->
 </div><!-- contenedor -->
 <script>
@@ -67,7 +67,7 @@ Por favor confirma tu voto a<br/><br/>
   socket.on( "ordenaSegundaVotacion", function( msg ){
       $( "#candidatos" ).html( "" );
       for( var i = 0; i < ( msg.length / 2 ); i++ ){
-          var soloNombre = msg[ i ].split( "<" );
+          var soloNombre = msg[ i ].split( "&nbsp;" );
         $( "#candidatos" ).append( "<a href='javascript:void(0)' valor='kc" + msg[ i + ( msg.length / 2 ) ] + "j8' class='candidato' ><div class='cuadroCandidato'><div class='imgCandidato'><img src='../resources/imgs/kc" + msg[ i + ( msg.length / 2 ) ] + ".jpg' width='220' height='220'></div>" + soloNombre[ 0 ] + "</div></a> " );
       }
       //$( "#candidatos" ).children().click( true );
@@ -87,11 +87,139 @@ Por favor confirma tu voto a<br/><br/>
     }
   });
     
-  socket.on( "siguienteSeccionVotante", function( msg ){
+  /*socket.on( "siguienteSeccionVotante", function( msg ){
     if( msg == 1 ){
         window.location.href = "categoria_l.html";
     }
-  });
+  });*/
+    
+  //---------------------------------------cues de teclas para llevar a secciones  
+    socket.on( "jveaA", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_a.html";
+        }
+    });
+    
+    socket.on( "jveaB", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_b.html";
+        }
+    });
+    
+    socket.on( "jveaC", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_c.html";
+        }
+    });
+    
+    socket.on( "jveaD", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_d.html";
+        }
+    });
+    
+    socket.on( "jveaE", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_e.html";
+        }
+    });
+    
+    socket.on( "jveaF", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_f.html";
+        }
+    });
+    
+    socket.on( "jveaG", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_g.html";
+        }
+    });
+    
+    socket.on( "jveaH", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_h.html";
+        }
+    });
+    
+    socket.on( "jveaI", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_i.html";
+        }
+    });
+    
+    socket.on( "jveaK", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_k.html";
+        }
+    });
+    
+    socket.on( "jveaL", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_l.html";
+        }
+    });
+    
+    socket.on( "jveaM", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_m.html";
+        }
+    });
+    
+    socket.on( "jveaN", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_n.html";
+        }
+    });
+    
+    socket.on( "jveaO", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_o.html";
+        }
+    });
+    
+    socket.on( "jveaP", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_p.html";
+        }
+    });
+    
+    socket.on( "jveaQ", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_q.html";
+        }
+    });
+    
+    socket.on( "jveaR", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_r.html";
+        }
+    });
+    
+    socket.on( "jveaS", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_s.html";
+        }
+    });
+    
+    socket.on( "jveaT", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_t.html";
+        }
+    });
+    
+    socket.on( "jveaU", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_u.html";
+        }
+    });
+    
+    socket.on( "jveaV", function( msg ){
+        if( msg == 1 ){
+            window.location.href = "categoria_v.html";
+        }
+    });
+  //---------------------------------------cues de teclas para llevar a secciones  
     
     socket.on( "recibeRefresh", function( msg ){
     if( msg == 1 ){
