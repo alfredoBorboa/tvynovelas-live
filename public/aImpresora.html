@@ -10,14 +10,14 @@
     
 <style>
     i{
-        color:#000;
-        font-size:25px;
+        color:#FFF;
+        font-size:40px;
     }
 </style>
     
 </head>
 
-<body style="background-color:#FFF;text-align:center;color:#000;background-image:none;font-size:45px;padding-top:100px;">
+<body style="background-color:#000;text-align:center;color:#FFF;background-image:none;font-size:60px;padding-top:100px;">
 
     
 <script>
@@ -25,6 +25,16 @@
  socket.on( "imprime", function( msg ){
         $( "body" ).html( msg );
     });
+    
+socket.on( "recibeRefresh", function( msg ){
+    if( msg == 1 ){
+        location.reload();
+    }
+  });
+    
+socket.on( "ordenaSegundaVotacion", function( msg ){
+    $( "body" ).html( "¡Empate!" );
+});
 </script>
 </body>
 </html>

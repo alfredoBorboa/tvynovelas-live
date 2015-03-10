@@ -40,7 +40,7 @@
 <div id="contenedorM">
 <h1>Mejor Programa Especial<span id="votosTotales"></span></h1>
 <div id="candidatosM">
-<div class="candidatoM" id="uc1"><div class="imgCandidatoM"><img src="resources/imgs/uc1.jpg"/></div>Luis de Llano, Marco Flavio Cruz, Carlo Antonio Rico y Juan Carlos López<br><i>Festival Acapulco 2014</i>&nbsp;<br/><br/><span class="conteoM" id="conteoUc1"></span><br/><br/></div>
+<div class="candidatoM" id="uc1"><div class="imgCandidatoM"><img src="resources/imgs/uc1.jpg"/></div>Miguel Ángel Fox y Maria del Refugio Razo<br><i>Premios Bandamax</i>&nbsp;<br/><br/><span class="conteoM" id="conteoUc1"></span><br/><br/></div>
 <div class="candidatoM" id="uc2"><div class="imgCandidatoM"><img src="resources/imgs/uc2.jpg"/></div>Ricardo Villacorta<br><br><br><br><i>Chespirito gracias por siempre</i>&nbsp;<br/><br/><span class="conteoM" id="conteoUc2"></span><br/><br/></div>
 <div class="candidatoM" id="uc3"><div class="imgCandidatoM"><img src="resources/imgs/uc3.jpg"/></div>Luis de Llano, Marco Flavio Cruz, Carlo Antonio Rico y Juan Carlos López<br><i>Nuestra Belleza México 2014</i>&nbsp;<br/><br/><span class="conteoM" id="conteoUc3"></span><br/><br/></div>
 <div class="candidatoM" id="uc4"><div class="imgCandidatoM"><img src="resources/imgs/uc4.jpg"/></div>Luis de Llano, Marco Flavio Cruz, Carlo Antonio Rico y Juan Carlos López<br><i>Grandes temas de telenovela</i>&nbsp;<br/><br/><span class="conteoM" id="conteoUc4"></span><br/><br/></div>
@@ -57,8 +57,8 @@
 
   var contadores = [ 0, 0, 0, 0 ];
     
-  var jurados = [ "Pedro Damián", "Mara Patricia Castañeda", "Alfredo Gudinni", "Claudia de Icaza", "Karla Martínez", "Flor Rubio", "Aurora Valle", "Lupita Martínez", "Karina Duprez", "Salvador Mejía", "Nicandro Díaz", "Roberto Hernández", "TVYNOV" ];
-  var aCandidatos = [ "Luis de Llano, Marco Flavio Cruz, Carlo Antonio Rico y Juan Carlos López<br><i>Festival Acapulco 2014</i>&nbsp;", "Ricardo Villacorta<br><br><br><br><i>Chespirito gracias por siempre</i>&nbsp;", "Luis de Llano, Marco Flavio Cruz, Carlo Antonio Rico y Juan Carlos López<br><i>Nuestra Belleza México 2014</i>&nbsp;", "Luis de Llano, Marco Flavio Cruz, Carlo Antonio Rico y Juan Carlos López<br><i>Grandes temas de telenovela</i>&nbsp;" ];
+  var jurados = [ "Pedro Damián", "Mara Patricia Castañeda", "Alfredo Gudinni", "Claudia de Icaza", "Karla Martínez", "Flor Rubio", "Aurora Valle", "Lupita Martínez", "Karina Duprez", "Salvador Mejía", "Nicandro Díaz", "Roberto Hernández", "Gabriela Itzel Sánchez" ];
+  var aCandidatos = [ "Miguel Ángel Fox y Maria del Refugio Razo<br><i>Premios Bandamax</i>&nbsp;", "Ricardo Villacorta<br><br><br><br><i>Chespirito gracias por siempre</i>&nbsp;", "Luis de Llano, Marco Flavio Cruz, Carlo Antonio Rico y Juan Carlos López<br><i>Nuestra Belleza México 2014</i>&nbsp;", "Luis de Llano, Marco Flavio Cruz, Carlo Antonio Rico y Juan Carlos López<br><i>Grandes temas de telenovela</i>&nbsp;" ];
   var idCandidatos = [ 1, 2, 3, 4 ];
 
   socket.on('votoHaciaMonitor', function(msg){
@@ -113,7 +113,6 @@
              $( "#fotoGanador" ).append( imgParaGanador );
           }
         });
-      
       hayGanador = true;
       $( "#overlayGanador" ).fadeToggle( "slow" );
     }

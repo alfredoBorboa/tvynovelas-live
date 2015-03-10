@@ -16,7 +16,7 @@ body{
     margin:0;
     padding:0;
     background-image: url(resources/fondoNebula.jpg);
-    background-size:100%;
+    background-size: cover;
 }
 
 #contenedor{
@@ -42,7 +42,7 @@ body{
 }
 
 #overlayLogo{
-    position:absolute;
+    position:fixed;
     background-color: #000;
     left:0;
     right:0;
@@ -52,7 +52,11 @@ body{
 }
 
 #overlayLogo img{
-    width:100%;
+    position:absolute;
+    width:1000px;
+    left:50%;
+    margin-left:-500px;
+    top:50px;
 }
 
 #votosTotales{
@@ -104,7 +108,7 @@ i{
 }
 
 #overlayConfirmacion{
-    position: absolute;
+    position: fixed;
     left:0;
     right:0;
     top:0;
@@ -237,7 +241,7 @@ i{
 }
 
 #overlayGanador{
-    position: absolute;
+    position: fixed;
     left:0;
     right:0;
     top:0;
@@ -252,7 +256,7 @@ i{
 }
 
 #overlayPreGanador{
-    position: absolute;
+    position: fixed;
     left:0;
     right:0;
     top:0;
@@ -268,31 +272,44 @@ i{
 
 #ganadorTexto{
     position:absolute;
-    width: 300px;
+    width: 700px;
     height: auto;
     background-color: #000;
     left: 50%;
-    margin-left: -180px;
+    margin-left: -380px;
     top: 50%;
-    margin-top: -210px;
+    margin-top: -310px;
     padding:30px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px #888888;
+    font-size: 17px;
+    font-style: italic;
 }
 
 #fotoGanador{
     margin-top:25px;
-    margin-left:65px;
+    margin-left:250px;
+}
+
+#fotoGanador .imgCandidatoM{
+    width: 200px;
+    height: 200px;
+}
+
+#fotoGanador .imgCandidatoM img{
+    width: 200px;
+    height: 200px;
 }
 
 #elGanador{
     font-size: 22px;
+    font-style: normal;
 }
 
 #overlayEmpate{
-    position: absolute;
+    position: fixed;
     left:0;
     right:0;
     top:0;
